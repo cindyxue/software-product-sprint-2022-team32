@@ -8,11 +8,30 @@ import com.google.cloud.datastore.FullEntity;
 import com.google.cloud.datastore.KeyFactory;
 import com.google.cloud.datastore.Query;
 import com.google.cloud.datastore.QueryResults;
-//import com.google.cloud.datastore.StructuredQuery.OrderBy;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DatastoreService {
+
+    // Retrieves properties from a datastore entity and creates an user object with that data.
+    public User createUser(Entity entity){
+
+        String username = entity.getString("username");
+        String email = entity.getString("email");
+        String passwordHash = entity.getString("passwordHash");
+
+        String firstName = entity.getString("firstName");
+        String middleName = entity.getString("middleName");
+        String lastName = entity.getString("lastName");
+
+        var calendar = entity.getList("calendar");
+        var journal = entity.getList("journal");
+
+        long panicButtonPressed = entity.getLong("panicButtonPressed");
+
+        User user = new User(username, email, passwordHash, firstName, middleName, lastName, calendar, journal, panicButtonPressed);
+        return user;
+    }
 
     /* Returns a List of all Users stored in Datastore.
         !!! Used for debugging.
@@ -24,21 +43,7 @@ public class DatastoreService {
         List<User> users = new ArrayList<>();
         while (results.hasNext()) {
             Entity entity = results.next();
-
-            String username = entity.getString("username");
-            String email = entity.getString("email");
-            String passwordHash = entity.getString("passwordHash");
-
-            String firstName = entity.getString("firstName");
-            String middleName = entity.getString("middleName");
-            String lastName = entity.getString("lastName");
-            
-            var calendar = entity.getList("calendar");
-            var journal = entity.getList("journal");
-            
-            long panicButtonPressed = entity.getLong("panicButtonPressed");
-
-            User user = new User(username, email, passwordHash, firstName, middleName, lastName, calendar, journal, panicButtonPressed);
+            User user = createUser(entity);
             users.add(user);
         }
         return users;
@@ -62,21 +67,7 @@ public class DatastoreService {
         QueryResults<Entity> results = datastore.run(query);
         if (results.hasNext()) {
             Entity entity = results.next();
-
-            String email = entity.getString("email");
-            String passwordHash = entity.getString("passwordHash");
-
-            String firstName = entity.getString("firstName");
-            String middleName = entity.getString("middleName");
-            String lastName = entity.getString("lastName");
-
-            var calendar = entity.getList("calendar");
-            var journal = entity.getList("journal");
-
-            long panicButtonPressed = entity.getLong("panicButtonPressed");
-
-            User user = new User(username, email, passwordHash, firstName, middleName, lastName, calendar, journal, panicButtonPressed);
-            return user;
+            return createUser(entity);
         }
         return null;
     }
@@ -92,28 +83,15 @@ public class DatastoreService {
             QueryResults<Entity> results = datastore.run(query);
             if (results.hasNext()) {
                 Entity entity = results.next();
-
-                String email = entity.getString("email");
-                String passwordHash = entity.getString("passwordHash");
-
-                String firstName = entity.getString("firstName");
-                String middleName = entity.getString("middleName");
-                String lastName = entity.getString("lastName");
-
-                var calendar = entity.getList("calendar");
-                var journal = entity.getList("journal");
-
-                long panicButtonPressed = entity.getLong("panicButtonPressed");
-
-                User user = new User(username, email, passwordHash, firstName, middleName, lastName, calendar, journal, panicButtonPressed);
+                User user = createUser(entity);
                 return user;
             }
         }
         return null;
     }
 
-    /* Saves new user to Datastore. Validates that the user does not already exist. */
-    public void saveUser(User user) {
+    /*Constructs a datastore entity from an user object*/
+    public FullEntity createEntity(User user){
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
         KeyFactory keyFactory = datastore.newKeyFactory().setKind("User");
         FullEntity entity = Entity.newBuilder(keyFactory.newKey(user.getUsername()))
@@ -127,26 +105,21 @@ public class DatastoreService {
                 .set("journal", user.getJournal())
                 .set("panicButtonPressed", user.getPanicButtonPressed())
                 .build();
-        // datastore.add(user); // Datastore add operation: inserts the provided entities.
+        return entity;
+    }
+
+    /* Saves new user to Datastore. Validates that the user does not already exist. */
+    public void saveUser(User user) {
+        Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+        FullEntity entity = createEntity(user);
         datastore.put(entity); // A Datastore put (a.k.a upsert) operation: creates an entity if it does not exist, updates it otherwise.
     }
 
     /* Updates user in Datastore. Validates that the user exists. */
     public void updateUser(String username, String password, User user) {
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
-        KeyFactory keyFactory = datastore.newKeyFactory().setKind("User");
         if (validateCredentials(getUser(username), password)) {
-            FullEntity entity = Entity.newBuilder(keyFactory.newKey(username))
-                .set("username", user.getUsername())
-                .set("email", user.getEmail())
-                .set("passwordHash", user.getPasswordHash())
-                .set("firstName", user.getFirstName())
-                .set("middleName", user.getMiddleName())
-                .set("lastName", user.getLastName())
-                .set("calendar", user.getCalendar())
-                .set("journal", user.getJournal())
-                .set("panicButtonPressed", user.getPanicButtonPressed())
-                .build();
+            FullEntity entity = createEntity(user);
             datastore.put(entity);
         }
         else{
