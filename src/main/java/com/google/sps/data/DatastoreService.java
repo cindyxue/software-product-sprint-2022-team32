@@ -3,15 +3,38 @@ package com.google.sps.data;
 import com.google.cloud.datastore.Datastore;
 import com.google.cloud.datastore.DatastoreOptions;
 import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
+import com.google.gson.Gson;
 import com.google.cloud.datastore.Entity;
 import com.google.cloud.datastore.FullEntity;
 import com.google.cloud.datastore.KeyFactory;
 import com.google.cloud.datastore.Query;
 import com.google.cloud.datastore.QueryResults;
+import com.google.cloud.datastore.StringValue;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class DatastoreService {
+
+    public List<Day> JSONlist2ObjectList(List<StringValue> calendar){
+        Gson g = new Gson();
+        List<Day> cal = new ArrayList<Day>();
+        for (StringValue temp : calendar) {
+            String day = temp.get();
+            Day d = g.fromJson(day, Day.class);
+            cal.add(d);
+        }
+        return cal;
+    }
+
+    public List<String> ValueString2StringList(List<StringValue> journal){
+        List<String> jou = new ArrayList<String>();
+        for (StringValue temp : journal) {
+            String entry = temp.get();
+            jou.add(entry);
+        }
+        return jou;
+    }
 
     // Retrieves properties from a datastore entity and creates an user object with that data.
     public User createUser(Entity entity){
@@ -24,8 +47,11 @@ public class DatastoreService {
         String middleName = entity.getString("middleName");
         String lastName = entity.getString("lastName");
 
-        var calendar = entity.getList("calendar");
-        var journal = entity.getList("journal");
+        List<StringValue> tempCalendar = entity.getList("calendar");
+        List<StringValue> tempJournal = entity.getList("journal");
+
+        List<Day> calendar = JSONlist2ObjectList(tempCalendar);
+        List<String> journal = ValueString2StringList(tempJournal);
 
         long panicButtonPressed = entity.getLong("panicButtonPressed");
 
@@ -101,8 +127,8 @@ public class DatastoreService {
                 .set("firstName", user.getFirstName())
                 .set("middleName", user.getMiddleName())
                 .set("lastName", user.getLastName())
-                .set("calendar", user.getCalendar())
-                .set("journal", user.getJournal())
+                .set("calendar", user.getCalendarAsStrings())
+                .set("journal", user.getJournalAsStrings())
                 .set("panicButtonPressed", user.getPanicButtonPressed())
                 .build();
         return entity;

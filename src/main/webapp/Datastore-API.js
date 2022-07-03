@@ -41,7 +41,19 @@ export async function register(username, password, email, firstName, middleName,
 
     const json = await response.json();
 
-    return json;
+    /*
+const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
+
+    const json = await response.json();
+    */
+
+    //return json;
 }
 
 export async function addDayToUser(username, password, day) {

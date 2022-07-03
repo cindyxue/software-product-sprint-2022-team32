@@ -3,9 +3,8 @@ package com.google.sps.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.cloud.datastore.Value;
-
-
+import com.google.cloud.datastore.StringValue;
+import com.google.gson.Gson;
 
 /*
 User: {
@@ -35,13 +34,13 @@ public final class User {
     private final String middleName;
     private final String lastName;
 
-    private final List<Value<?>> calendar;
-    private final List<Value<?>> journal;
+    private final List<Day> calendar;
+    private final List<String> journal;
     private final long panicButtonPressed;
 
     // Constructor for User
 
-    public User(String _username, String _email, String _passwordHash, String _firstName, String _middleName, String _lastName, List<Value<?>> _calendar, List<Value<?>>_journal, long _panicButtonPressed) {
+    public User(String _username, String _email, String _passwordHash, String _firstName, String _middleName, String _lastName, List<Day> _calendar, List<String>_journal, long _panicButtonPressed) {
 
         username = _username;
         email = _email;
@@ -67,8 +66,8 @@ public final class User {
         middleName = _middleName;
         lastName = _lastName;
         
-        calendar = new ArrayList<Value<?>>();
-        journal = new ArrayList<Value<?>>();
+        calendar = new ArrayList<Day>();
+        journal = new ArrayList<String>();
 
         panicButtonPressed = 0;
     }
@@ -100,11 +99,11 @@ public final class User {
         return this.lastName;
     }
 
-    public List<Value<?>> getCalendar() {
+    public List<Day> getCalendar() {
         return this.calendar;
     }
 
-    public List<Value<?>> getJournal() {
+    public List<String> getJournal() {
         return this.journal;
     }
 
@@ -114,30 +113,33 @@ public final class User {
 
     // Special getters for the calendar and journal
 
-    public List<String> getCalendarAsStrings() {
-        List<String> calendarAsStrings = new ArrayList<String>();
-        for (Value<?> day : this.calendar) {
-            calendarAsStrings.add(day.toString());
+    public List<StringValue> getCalendarAsStrings() {
+        List<StringValue> calendarAsStrings = new ArrayList<StringValue>();
+        Gson gson = new Gson();
+        for (Day day : this.calendar) {
+            String json = gson.toJson(day);
+            StringValue json2 = StringValue.of(json);
+            calendarAsStrings.add(json2);
         }
         return calendarAsStrings;
     }
 
-    public List<String> getJournalAsStrings() {
-        List<String> journalAsStrings = new ArrayList<String>();
-        for (Value<?> entry : this.journal) {
-            journalAsStrings.add(entry.toString());
+    public List<StringValue> getJournalAsStrings() {
+        List<StringValue> journalAsStrings = new ArrayList<StringValue>();
+        for (String entry : this.journal) {
+            journalAsStrings.add(StringValue.of(entry));
         }
         return journalAsStrings;
     }
 
     // Adders
 
-    public void addDayToCalendar(String day) {
-        this.calendar.add(Value.string(day));
+    public void addDayToCalendar(Day day) {
+        this.calendar.add(day);
     }
 
     public void addEntryToJournal(String entry) {
-        this.journal.add(Value.string(entry));
+        this.journal.add(entry);
     }
 
 }

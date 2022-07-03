@@ -1,4 +1,4 @@
-import {login, register} from "Datastore-API";
+import {login, register} from "./Datastore-API.js";
 
 export function handleRegister(){
     // Get data from form
@@ -17,10 +17,12 @@ export function handleRegister(){
     }
 
     response = register(username, password, email, firstName, middleName, lastName);
+    Console.log(response);
 
     if (response.success) {
         alert("Registration successful!");
         window.location.href = "/debugger.html";
+        
     }
     else {
         alert("Registration failed: " + response.error);
@@ -34,6 +36,7 @@ export function handleLogin(){
     const password = document.getElementById("password").value;
 
     response = login(username, password);
+    console.log(response)
 
     if (response.success) {
         alert("Login successful!");
