@@ -116,15 +116,10 @@ public class DatastoreService {
     }
 
     /* Updates user in Datastore. Validates that the user exists. */
-    public void updateUser(String username, String password, User user) {
+    public void updateUser(User user) {
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
-        if (validateCredentials(getUser(username), password)) {
-            FullEntity entity = createEntity(user);
-            datastore.put(entity);
-        }
-        else{
-            throw new IllegalArgumentException("Invalid credentials");
-        }
+        FullEntity entity = createEntity(user);
+        datastore.put(entity);
     }
 
     /* Deletes user from Datastore. Validates that the user exists. */

@@ -18,10 +18,10 @@ public class DeleteAll extends HttpServlet {
                 DatastoreService datastoreService = new DatastoreService();
                 datastoreService.deleteAll();
                 response.setContentType("application/json");
-                response.getWriter().println("{\"Success\":\"All accounts deleted.\"}");
+                response.getWriter().println("{\"success\":\"All accounts deleted.\"}");
             } catch(Exception e){
                 response.setContentType("application/json");
-                response.getWriter().println("{\"Error\":\"Something went wrong.\"}");
+                response.getWriter().println("{\"error\":\"Something went wrong.\"}");
             }
             
     }

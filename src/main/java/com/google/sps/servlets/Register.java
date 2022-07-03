@@ -39,7 +39,7 @@ public class Register extends HttpServlet {
             User user = new User(username, email, password, firstName, middleName, lastName);
             datastoreService.saveUser(user);
             response.setContentType("application/json");
-            response.getWriter().println("{\"Success\":\"Account registered.\"}");
+            response.getWriter().println("{\"success\":\"Account registered.\"}");
         } catch(Exception e){
             response.setContentType("application/json");
             response.getWriter().println("{\"error\":\"Error registering account.\"}");

@@ -13,7 +13,7 @@ String password = request.getParameter("password");
 -->
 <body>
     <h1>Login</h1>
-    <form action="/api/login" method="POST">
+    <form onSubmit="handleLogin()" method="POST">
         <label for="username">Username:</label>
         <input type="text" name="username" id="username">
         <br>

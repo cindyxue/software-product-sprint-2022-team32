@@ -130,6 +130,16 @@ public final class User {
         return journalAsStrings;
     }
 
+    // Adders
+
+    public void addDayToCalendar(String day) {
+        this.calendar.add(Value.string(day));
+    }
+
+    public void addEntryToJournal(String entry) {
+        this.journal.add(Value.string(entry));
+    }
+
 }
 
 
