@@ -1,5 +1,5 @@
-import {getUser,getUserCalendar,getUserJournal,getUserPanicButton,addDayToCalendar,addEntryToJournal,addOneToPanicButton} from "./Datastore-API.js";
-import {getCurrentUsername,getCurrentPasswordHash} from "./Cookies.js"
+import {getUser,getUserCalendar,getUserJournal,getUserPanicButton,addDayToCalendar,addEntryToJournal,addOneToPanicButton,deleteCurrentUser} from "./Datastore-API.js";
+import {getCurrentUsername,getCurrentPasswordHash,deleteCookie} from "./Cookies.js"
 
 function updateText(txt,fieldName){
     var fieldNameElement = document.getElementById(fieldName);
@@ -23,7 +23,7 @@ window.onLoad = async function(){
     updateText(await getUserPanicButton(currentUsername,currentPasswordHash),"my-panic-button");
 
     updateText(JSON.stringify(await getUser(currentUsername,currentPasswordHash)),"my-info");
-}
+};
 
 window.addToCalendar = async function addToCalendar(){
 
@@ -69,7 +69,7 @@ window.addToJournal = async function addToJournal(){
 
     console.log("New entry:", entry);
 
-    const response = await addEntryToJournal(currentUsername, currentPasswordHash, entry)
+    const response = await addEntryToJournal(currentUsername, currentPasswordHash, entry);
 
     console.log(await response);
     if (await response.error) {
@@ -86,7 +86,7 @@ window.updatePanicButton = async function updatePanicButton(){
     const currentUsername = getCurrentUsername();
     const currentPasswordHash = getCurrentPasswordHash();
 
-    const response = await addOneToPanicButton(currentUsername, currentPasswordHash)
+    const response = await addOneToPanicButton(currentUsername, currentPasswordHash);
 
     console.log(await response);
     if (await response.error) {
@@ -95,4 +95,29 @@ window.updatePanicButton = async function updatePanicButton(){
     else{
         updateText(await getUserPanicButton(currentUsername,currentPasswordHash),"my-panic-button");
     }
-}
+};
+
+window.logout = function logout(){
+    deleteCookie("username");
+    deleteCookie("passwordHash");
+    window.location.href = "/login.html";    
+};
+
+window.userDelete = async function userDelete(){
+
+    const currentUsername = getCurrentUsername();
+    const currentPasswordHash = getCurrentPasswordHash();
+
+    const response = await deleteCurrentUser(currentUsername,currentPasswordHash);
+
+    console.log(await response);
+    if (await response.error) {
+        alert("delete failed: " + response.error);
+    }
+    else{
+        alert(response.success);
+        deleteCookie("username");
+        deleteCookie("passwordHash");
+        window.location.href = "/login.html";    
+    }
+};

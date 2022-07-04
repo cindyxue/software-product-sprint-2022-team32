@@ -22,3 +22,8 @@ export function getCurrentUsername(){
 export function getCurrentPasswordHash(){
     return getCookieValue("passwordHash");
 }
+
+// Delete a cookie
+export function deleteCookie(cName) {
+    document.cookie = cName + "=; Path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+}

@@ -22,6 +22,24 @@ export async function login(username, passwordHash){
     return json;
 }
 
+export async function deleteCurrentUser(username, passwordHash){
+    const payload = {
+        username: username, passwordHash: passwordHash
+    }
+    
+    const response = await fetch('/api/delete-user', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
+
+    const json = await response.json();
+
+    return json;
+}
+
 export async function register(username, passwordHash, email, firstName, middleName, lastName){
     // Post method: /api/register
     // Parameters: username, password, email, firstName, middleName, lastName
