@@ -1,9 +1,11 @@
 // Module to handle the Datastore API - java servlets
 
 export async function login(username, passwordHash){
-    // Post method: /api/login
-    // Parameters: username, password
-    // Returns: success or error
+    /*
+    String username, String passwordHash
+    Returns a json, either json.error or json.success.
+    Json.success contains the user matching the username and passwordHash credentials.
+    */
     
     const payload = {
         username: username, passwordHash: passwordHash
@@ -23,6 +25,12 @@ export async function login(username, passwordHash){
 }
 
 export async function deleteCurrentUser(username, passwordHash){
+    /*
+    String username, String passwordHash
+    Returns a json, either json.error or json.success.
+    Deletes the user matching the username and passwordHash credentials.
+    */
+
     const payload = {
         username: username, passwordHash: passwordHash
     }
@@ -41,10 +49,12 @@ export async function deleteCurrentUser(username, passwordHash){
 }
 
 export async function register(username, passwordHash, email, firstName, middleName, lastName){
-    // Post method: /api/register
-    // Parameters: username, password, email, firstName, middleName, lastName
-    // Returns: success or error
-    
+    /*
+    String username, String passwordHash, String email, String firstName, String middleName, String lastName
+    Returns a json, either json.error or json.success.
+    Registers a new user if the username and email are not already in the database.
+    */
+
     const payload = {
         username: username, passwordHash: passwordHash, email: email, firstName: firstName, middleName: middleName, lastName: lastName
     }
@@ -63,6 +73,12 @@ export async function register(username, passwordHash, email, firstName, middleN
 }
 
 export async function getUser(username, passwordHash){
+    /*
+    String username, String passwordHash
+    If the username and passwordHash credentials are valid, returns a json matching the user defined in the database.
+    If not, alerts: alert("Something Went Wrong: " + response.error);
+    */
+   
     const jsonResponse = await login(username, passwordHash);
     if (await jsonResponse.error) {
         alert("Something Went Wrong: " + response.error);
@@ -74,10 +90,11 @@ export async function getUser(username, passwordHash){
 }
 
 export async function addDayToCalendar(username, passwordHash, day) {
-    // Day as json object -> {date: long, mood: byte}
-
-    // Parameters: username, password, day
-    // Returns: success or error
+    /*
+    String username, String passwordHash, Day:{date:long(timestamp),mood:int} day
+    Returns a json, either json.error or json.success.
+    Adds the given day to the calend
+    */
     
     const user = await getUser(username, passwordHash);
     console.log("Retrieved user:", await user);
@@ -91,10 +108,11 @@ export async function addDayToCalendar(username, passwordHash, day) {
 }
 
 export async function addEntryToJournal(username, passwordHash, entry) {
-    // Entry as an string
-    
-    // Parameters: username, password, entry
-    // Returns: success or error
+    /*
+    String username, String passwordHash, String entry
+    Returns a json, either json.error or json.success.
+    Adds the given entry to the journal of the user matching the username and passwordHash credentials.
+    */
     
     const user = await getUser(username, passwordHash);
 
@@ -109,6 +127,12 @@ export async function addEntryToJournal(username, passwordHash, entry) {
 }
 
 export async function addOneToPanicButton(username, passwordHash){
+    /*
+    String username, String passwordHash
+    Returns a json, either json.error or json.success.
+    Adds 1 to the panic button counter of the user matching the username and passwordHash credentials.
+    */
+
     const user = await getUser(username, passwordHash);
 
     const prevEmail = await user.email;
@@ -126,13 +150,21 @@ export async function addOneToPanicButton(username, passwordHash){
 
 export async function updateUser(username, passwordHash, prevEmail, user){
     /*
-        Update User Call
-        /api/update-user
-        Post Method, takes the following arguments as the payload:
-        {user : User,
-        prevUsername : String,
-        prevPasswordHash : String}
+        String username, String passwordHash, String prevEmail, 
+        User: {
+        username: string,
+        passwordHash: string,
+        calendar: array[day],
+        firstName: string,
+        middleName: string,
+        lastName: string,
+        panicButtonPressed: int, 
+        journal: array[string]
+        } user
+        Returns a json, either json.error or json.success.
+        Updates the user matching the username and password, the new user data is the data from the user parameter.
     */
+
    const payload = {
     user: user, 
     prevUsername: username, 
@@ -156,18 +188,33 @@ export async function updateUser(username, passwordHash, prevEmail, user){
 }
 
 export async function getUserCalendar(username, passwordHash){
+    /*
+    String username, String passwordHash
+    Returns the calendar of the user matching the username and password.
+    */
+
     const user = await getUser(username, passwordHash);
     
     return user.calendar;
 }
 
 export async function  getUserJournal(username, passwordHash){
+    /*
+    String username, String passwordHash
+    Returns the journal of the user matching the username and password.
+    */
+
     const user = await getUser(username, passwordHash);
     
     return user.journal;
 }
 
 export async function getUserPanicButton(username, passwordHash){
+    /*
+    String username, String passwordHash
+    Returns the panic button counter of the user matching the username and password.
+    */
+
     const user = await getUser(username, passwordHash);
     
     return user.panicButtonPressed;
