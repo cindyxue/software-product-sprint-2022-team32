@@ -1,6 +1,7 @@
 import {login, register} from "./Datastore-API.js";
 
-export function handleRegister(){
+window.handleRegister = async function handleRegister(){
+    console.log("Form submitted.")
     // Get data from form
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
@@ -16,33 +17,44 @@ export function handleRegister(){
         return;
     }
 
-    response = register(username, password, email, firstName, middleName, lastName);
-    Console.log(response);
+    console.log(username, password, email, firstName, middleName, lastName)
 
-    if (response.success) {
-        alert("Registration successful!");
-        window.location.href = "/debugger.html";
-        
-    }
-    else {
+    // Encrypt the password, for debugging purposes its not being yet implemented.
+    const passwordHash = password;
+
+    const response = await register(username, passwordHash, email, firstName, middleName, lastName);
+    console.log(await response);
+
+    if (await response.error) {
         alert("Registration failed: " + response.error);
     }
+    else{
+        alert("Registration successful!");
+        window.location.href = "/debugger.html";
+    }
+    
+};
 
-}
-
-export function handleLogin(){
+window.handleLogin = async function handleLogin(){
     // Get data from form
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    response = login(username, password);
-    console.log(response)
+    console.log(username, password)
 
-    if (response.success) {
-        alert("Login successful!");
-        window.location.href = "/debugger.html";
-    }
-    else {
+    // Encrypt the password, for debugging purposes its not being yet implemented.
+    const passwordHash = password;
+
+    const response = await login(username, passwordHash);
+    console.log(await response)
+
+    if (await response.error) {
         alert("Login failed: " + response.error);
+        return;
     }
-}
+    else{
+        alert("Login successful!");
+        window.location.href = "/debugger.html";        
+    }
+    
+};

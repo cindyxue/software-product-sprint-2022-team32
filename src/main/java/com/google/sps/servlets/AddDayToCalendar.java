@@ -26,12 +26,12 @@ public class AddDayToCalendar extends HttpServlet {
         User user = datastoreService.getUser(username);
         if (user == null) {
             response.setContentType("application/json");
-            response.getWriter().println("{\"error\":\"Invalid username.\"}");
+            response.getWriter().print("{\"error\":\"Invalid username.\"}");
             return;
         }
         if (!datastoreService.validateCredentials(user, password)){
             response.setContentType("application/json");
-            response.getWriter().println("{\"error\":\"Invalid password.\"}");
+            response.getWriter().print("{\"error\":\"Invalid password.\"}");
             return;
         }
 
@@ -41,7 +41,7 @@ public class AddDayToCalendar extends HttpServlet {
         user.addDayToCalendar(d);
         datastoreService.updateUser(user);
         response.setContentType("application/json");
-        response.getWriter().println("{\"success\":\"Day added to user.\"}");
+        response.getWriter().print("{\"success\":\"Day added to user.\"}");
         
     }
 }

@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +18,14 @@ import javax.servlet.http.HttpServletResponse;
 /* Handles the register page. */
 @WebServlet("/api/register")
 public class Register extends HttpServlet {
+
+    public void sendJSONResponse(HttpServletResponse response, String message) throws IOException{
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+        out.print(message);
+        out.flush();
+
+    }
 
     public static String getBody(HttpServletRequest request) throws IOException {
 
@@ -73,23 +82,19 @@ public class Register extends HttpServlet {
         try{
 
             if (!datastoreService.validateUniqueUsername(username)){
-                response.setContentType("application/json");
-                response.getWriter().println("{\"error\":\"Username already taken.\"}");
+                sendJSONResponse(response,"{\"error\":\"Username already taken.\"}");
                 return;
             }
             if (!datastoreService.validateUniqueEmail(email)){
-                response.setContentType("application/json");
-                response.getWriter().println("{\"error\":\"Email already taken.\"}");
+                sendJSONResponse(response,"{\"error\":\"Email already taken.\"}");
                 return;
             }
             User user = new User(username, email, password, firstName, middleName, lastName);
             datastoreService.saveUser(user);
-            response.setContentType("application/json");
-            response.getWriter().println("{\"success\":\"Account registered.\"}");
+            sendJSONResponse(response,"{\"success\":\"Account registered.\"}");
         } catch(Exception e){
-            response.setContentType("application/json");
             String message = "{\"error\":\"Error registering account: " + e + " \"}" ;
-            response.getWriter().println(message);
+            sendJSONResponse(response,message);
         }
     }
 }

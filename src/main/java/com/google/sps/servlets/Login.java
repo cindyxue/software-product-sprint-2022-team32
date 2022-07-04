@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 /* Handles the login page. */
 @WebServlet("/api/login")
 public class Login extends HttpServlet {
+
+    public void sendJSONResponse(HttpServletResponse response, String message) throws IOException{
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+        out.print(message);
+        out.flush();
+    }
 
     public static String getBody(HttpServletRequest request) throws IOException {
 
@@ -55,33 +63,37 @@ public class Login extends HttpServlet {
     @Override
     // Using the html form, validate the user's credentials and returns the user data if they are valid.
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String payloadRequest = getBody(request);
+        try{
 
-        Gson g = new Gson();
+            String payloadRequest = getBody(request);
 
-        User u = g.fromJson(payloadRequest,User.class);
+            Gson g = new Gson();
 
-        String username = u.getUsername();
-        String password = u.getPasswordHash();
-        
-        DatastoreService datastoreService = new DatastoreService();
-        User user = datastoreService.getUser(username);
-        if (user == null) {
-            response.setContentType("application/json");
-            response.getWriter().println("{\"error\":\"Invalid username.\"}");
-            return;
+            User u = g.fromJson(payloadRequest,User.class);
+
+            String username = u.getUsername();
+            String password = u.getPasswordHash();
+            
+            DatastoreService datastoreService = new DatastoreService();
+            User user = datastoreService.getUser(username);
+            if (user == null) {
+                sendJSONResponse(response,"{\"error\":\"Invalid username.\"}");
+                return;
+            }
+            if (!datastoreService.validateCredentials(user, password)){
+                sendJSONResponse(response, "{\"error\":\"Invalid password.\"}");
+                return;
+            }
+
+            /*Return the user data if the credentials are valid.*/
+            Gson gson = new Gson();
+            String json = gson.toJson(user);
+            String message = "{\"success\":" + json + "}" ;
+            sendJSONResponse(response,message);
+        } catch (Exception e){
+            String message = "{\"error\":\"Error: " + e + " \"}" ;
+            sendJSONResponse(response,message);
         }
-        if (!datastoreService.validateCredentials(user, password)){
-            response.setContentType("application/json");
-            response.getWriter().println("{\"error\":\"Invalid password.\"}");
-            return;
-        }
-
-        /*Return the user data if the credentials are valid.*/
-        Gson gson = new Gson();
-        String json = gson.toJson(user);
-        response.setContentType("application/json");
-        response.getWriter().println(json);
         
     }
 }
