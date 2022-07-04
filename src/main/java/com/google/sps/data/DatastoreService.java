@@ -82,6 +82,13 @@ public class DatastoreService {
         }
         return user.getPasswordHash().equals(password);
     }
+    public boolean validateCredentials(String username, String password) {
+        User user = getUser(username);
+        if (user == null) {
+            return false;
+        }
+        return user.getPasswordHash().equals(password);
+    }
 
     /* Returns a User with the given username. */
     public User getUser(String username) {
@@ -142,8 +149,16 @@ public class DatastoreService {
     }
 
     /* Updates user in Datastore. Validates that the user exists. */
-    public void updateUser(User user) {
+    public void updateUser(String prevUsername, User user) {
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+        User prevUser = getUser(prevUsername);
+        
+        if ((prevUser.getUsername() != user.getUsername())){
+            deleteUser(prevUsername, prevUser.getPasswordHash());
+            saveUser(user);
+            return;
+        } 
+        
         FullEntity entity = createEntity(user);
         datastore.put(entity);
     }

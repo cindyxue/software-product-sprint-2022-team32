@@ -1,4 +1,11 @@
 import {login, register} from "./Datastore-API.js";
+import {setCookie} from "./Cookies.js"
+
+function storeLoginSession(username,passwordHash){
+    // Store username and password hash as cookies.
+    setCookie("username",username,2);
+    setCookie("passwordHash",passwordHash,2);
+}
 
 window.handleRegister = async function handleRegister(){
     console.log("Form submitted.")
@@ -30,6 +37,10 @@ window.handleRegister = async function handleRegister(){
     }
     else{
         alert("Registration successful!");
+
+        // Store data
+        storeLoginSession(username,passwordHash)
+
         window.location.href = "/debugger.html";
     }
     
@@ -54,6 +65,10 @@ window.handleLogin = async function handleLogin(){
     }
     else{
         alert("Login successful!");
+
+        // Store data
+        storeLoginSession(username,passwordHash)
+
         window.location.href = "/debugger.html";        
     }
     

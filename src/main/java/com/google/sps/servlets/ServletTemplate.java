@@ -17,7 +17,6 @@ public class ServletTemplate extends HttpServlet{
         PrintWriter out = response.getWriter();
         out.print(message);
         out.flush();
-
     }
 
     public static String getBody(HttpServletRequest request) throws IOException {
