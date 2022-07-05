@@ -24,30 +24,6 @@ export async function login(username, passwordHash){
     return json;
 }
 
-export async function deleteCurrentUser(username, passwordHash){
-    /*
-    String username, String passwordHash
-    Returns a json, either json.error or json.success.
-    Deletes the user matching the username and passwordHash credentials.
-    */
-
-    const payload = {
-        username: username, passwordHash: passwordHash
-    }
-    
-    const response = await fetch('/api/delete-user', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-    });
-
-    const json = await response.json();
-
-    return json;
-}
-
 export async function register(username, passwordHash, email, firstName, middleName, lastName){
     /*
     String username, String passwordHash, String email, String firstName, String middleName, String lastName
@@ -87,6 +63,30 @@ export async function getUser(username, passwordHash){
         const user = jsonResponse.success;
         return user;
     }
+}
+
+export async function deleteCurrentUser(username, passwordHash){
+    /*
+    String username, String passwordHash
+    Returns a json, either json.error or json.success.
+    Deletes the user matching the username and passwordHash credentials.
+    */
+
+    const payload = {
+        username: username, passwordHash: passwordHash
+    }
+    
+    const response = await fetch('/api/delete-user', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
+
+    const json = await response.json();
+
+    return json;
 }
 
 export async function addDayToCalendar(username, passwordHash, day) {
@@ -190,7 +190,7 @@ export async function updateUser(username, passwordHash, prevEmail, user){
 export async function getUserCalendar(username, passwordHash){
     /*
     String username, String passwordHash
-    Returns the calendar of the user matching the username and password.
+    Returns the calendar(array[day]) of the user matching the username and password.
     */
 
     const user = await getUser(username, passwordHash);
@@ -201,7 +201,7 @@ export async function getUserCalendar(username, passwordHash){
 export async function  getUserJournal(username, passwordHash){
     /*
     String username, String passwordHash
-    Returns the journal of the user matching the username and password.
+    Returns the journal(array[string]) of the user matching the username and password.
     */
 
     const user = await getUser(username, passwordHash);
@@ -212,7 +212,7 @@ export async function  getUserJournal(username, passwordHash){
 export async function getUserPanicButton(username, passwordHash){
     /*
     String username, String passwordHash
-    Returns the panic button counter of the user matching the username and password.
+    Returns the panic button counter(int) of the user matching the username and password.
     */
 
     const user = await getUser(username, passwordHash);
