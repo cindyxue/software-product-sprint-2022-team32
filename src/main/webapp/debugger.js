@@ -1,4 +1,4 @@
-import {getUser,getUserCalendar,getUserJournal,getUserPanicButton,addDayToCalendar,addEntryToJournal,addOneToPanicButton,deleteCurrentUser} from "./Datastore-API.js";
+import {getUser,getUserCalendar,getUserJournal,getUserPanicButton,addDayToCalendar,addEntryToJournal,addOneToPanicButton,deleteCurrentUser} from "../api/Datastore-API.js";
 import {getCurrentUsername,getCurrentPasswordHash,deleteCookie} from "./Cookies.js"
 
 function updateText(txt,fieldName){

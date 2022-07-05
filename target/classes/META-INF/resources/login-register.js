@@ -1,4 +1,4 @@
-import {login, register} from "./Datastore-API.js";
+import {login, register} from "../api/Datastore-API.js";
 import {setCookie} from "./Cookies.js"
 
 function storeLoginSession(username,passwordHash){
