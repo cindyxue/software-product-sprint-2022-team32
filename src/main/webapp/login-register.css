@@ -34,9 +34,11 @@
         right: 0;
     }
     .form-input{
-        padding: 10px 10px;
-        margin-bottom: 10px;
         font-size: 15px;
+    }
+    .form-container{
+        margin-left: 25px;
+        margin-right: 25px;
     }
     
 }
@@ -49,9 +51,12 @@
     }
 
     .form-input{
-        padding: 10px 10px;
-        margin-bottom: 10px;
         font-size: 16px;
+    }
+
+    .form-container{
+        margin-left: 0px;
+        margin-right: 0px;
     }
 
     
@@ -79,6 +84,7 @@
     margin-top: 10px;
 
     
+
 }
 
 .form-title{
@@ -86,13 +92,15 @@
 }
 
 .form-input{
+    padding: 10px 10px;
+    margin-bottom: 10px;
     display: block;
     
     width: 100%;
     box-sizing: border-box;
 
     color: var(--seablue);
-    background: rgba(255,255,255,.3);
+    background: white;
 
     border: 1px solid var(--seagray);
     border-radius: 2px;
