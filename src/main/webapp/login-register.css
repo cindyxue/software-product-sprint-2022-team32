@@ -1,0 +1,61 @@
+:root{
+    --darkblue: #1C658C;
+    --seablue: #398AB9;
+    --seagray: rgb(216, 210, 203);
+    --seawhite: rgb(237, 237, 237);
+}
+
+.bg{
+    font-family: 'Courier New', Courier, monospace;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    overflow-y: scroll;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    background-image: url("https://media.wired.com/photos/5bb6accf0abf932caf294b18/master/pass/waves-730260985.jpg");
+}
+
+.divider{
+    position: absolute; 
+    left: 0;
+    top: 0;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+@media (max-width: 600px) {
+    .divider{
+        height: 100%;
+        width: 100%
+    }
+    
+}
+@media (min-width: 600px) {
+    
+    .divider{
+        height: 100%;
+        width: min(650px, 55%);
+    }
+}
+
+.logo-container{
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    top: 40px;
+}
+
+.logo{
+    width: min(400px, 100%);
+    position: relative;
+}
+
+.form-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

@@ -5,23 +5,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="login-register.css">
     <script type="module" src="./login.js"></script>
 </head>
 <!--A simple login form
 String username = request.getParameter("username");
 String password = request.getParameter("password");
 -->
-<body>
-    <h1>Login</h1>
-    <form>
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username">
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password">
-        <br>
-        <button type="submit" id="login-button">Login</button>
-    </form>
-    <p>Don't have an account? <a href="./register.html">Register</a></p>
+<body class="bg">
+
+    <div class="divider">
+
+        <div class="logo-container">
+                <img class="logo" src="./images/motusredo-removebg.png" alt="logo">
+        </div>
+        
+        <div class="form-container">
+            <form>
+
+                <h1 class="">Login</h1>
+    
+                <div>
+                    <label class="" for="username">Username:</label>
+                    <input class="" type="text" name="username" id="username">
+                </div>
+                
+    
+                <div>
+                    <label class="" for="password">Password:</label>
+                    <input class="" type="password" name="password" id="password">
+                </div>
+    
+                <button class="" type="submit" id="login-button">Login</button>
+                <p>Don't have an account? <a href="./register.html">Register</a></p>
+            </form>
+
+        </div>
+        
+
+
+    </div>
+    
+    
+    
 </body>
 </html>
