@@ -74,7 +74,7 @@
     align-items: center;
     justify-content: center;
 
-    margin-top: 30px;
+    margin-top: 10px;
 
     
 }
@@ -100,3 +100,29 @@
     border: 1px solid var(--seawhite);
     background: var(--seagray);
 }
+
+.form-button {
+    display: inline-block;
+    padding: 13px 12px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: none;
+    border-radius: 5px;
+
+    background: var(--darkblue);
+    color: #fff;
+
+}
+
+.form-button:hover{
+    background: var(--seablue);
+}
+
