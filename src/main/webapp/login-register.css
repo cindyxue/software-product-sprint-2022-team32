@@ -40,7 +40,11 @@
         margin-left: 25px;
         margin-right: 25px;
     }
-    
+
+    .width-definer{
+        width: min(300px, 80vw);
+        font-size: 15px;
+    }
 }
 
 @media (min-width: 600px) {
@@ -58,8 +62,9 @@
         margin-left: 0px;
         margin-right: 0px;
     }
-
-    
+    .width-definer{
+        width: 300px;
+    }
 }
 
 .logo-container{
@@ -77,13 +82,12 @@
 }
 
 .form-container{
+    
     display: flex;
     align-items: center;
     justify-content: center;
 
     margin-top: 10px;
-
-    
 
 }
 
