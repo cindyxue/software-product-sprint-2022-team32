@@ -27,6 +27,8 @@ public class Login extends ServletTemplate {
 
             String username = u.getUsername();
             String password = u.getPasswordHash();
+
+            String hashedPassword = Hashing.toHexString(Hashing.getSHA(password));
             
             DatastoreService datastoreService = new DatastoreService();
             User user = datastoreService.getUser(username);
@@ -34,7 +36,7 @@ public class Login extends ServletTemplate {
                 sendJSONResponse(response,"{\"error\":\"Invalid username.\"}");
                 return;
             }
-            if (!datastoreService.validateCredentials(user, password)){
+            if (!datastoreService.validateCredentials(user, hashedPassword)){
                 sendJSONResponse(response, "{\"error\":\"Invalid password.\"}");
                 return;
             }

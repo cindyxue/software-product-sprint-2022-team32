@@ -17,22 +17,23 @@ public class Register extends ServletTemplate  {
     @Override
     // Using the html form, register a new user if the username and email are not already taken.
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String payloadRequest = getBody(request);
-
-        Gson g = new Gson();
-
-        User u = g.fromJson(payloadRequest,User.class);
-
-        String username = u.getUsername();
-        String email = u.getEmail();
-        String password = u.getPasswordHash();
-        String firstName = u.getFirstName();
-        String middleName = u.getMiddleName();
-        String lastName = u.getLastName();
-
-        DatastoreService datastoreService = new DatastoreService();
-
         try{
+            String payloadRequest = getBody(request);
+
+            Gson g = new Gson();
+
+            User u = g.fromJson(payloadRequest,User.class);
+
+            String username = u.getUsername();
+            String email = u.getEmail();
+            String password = u.getPasswordHash();
+            String firstName = u.getFirstName();
+            String middleName = u.getMiddleName();
+            String lastName = u.getLastName();
+
+            DatastoreService datastoreService = new DatastoreService();
+            
+            String hashedPassword = Hashing.toHexString(Hashing.getSHA(password));
 
             if (!datastoreService.validateUniqueUsername(username)){
                 sendJSONResponse(response,"{\"error\":\"Username already taken.\"}");
@@ -42,7 +43,7 @@ public class Register extends ServletTemplate  {
                 sendJSONResponse(response,"{\"error\":\"Email already taken.\"}");
                 return;
             }
-            User user = new User(username, email, password, firstName, middleName, lastName);
+            User user = new User(username, email, hashedPassword, firstName, middleName, lastName);
             datastoreService.saveUser(user);
             sendJSONResponse(response,"{\"success\":\"Account registered.\"}");
         } catch(Exception e){
