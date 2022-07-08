@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <script type="module" src="./login-register.js"></script>
+    <link rel="stylesheet" href="login-register.css">
+    <script type="module" src="./register.js"></script>
 </head>
 <!--A simple register form
 String username = request.getParameter("username");
@@ -16,32 +17,38 @@ String middleName = request.getParameter("middleName");
 String lastName = request.getParameter("lastName");
 -->
 
-    <body>
-        <h1>Register</h1>
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" name="username" id="username">
-            <br>
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password">
-            <br>
-            <label for="password">Password Confirm:</label>
-            <input type="password" name="passwordConfirm" id="passwordConfirm">
-            <br>
-            <label for="email">Email:</label>
-            <input type="email" name="email" id="email">
-            <br>
-            <label for="firstName">First Name:</label>
-            <input type="text" name="firstName" id="firstName">
-            <br>
-            <label for="middleName">Middle Name:</label>
-            <input type="text" name="middleName" id="middleName">
-            <br>
-            <label for="lastName">Last Name:</label>
-            <input type="text" name="lastName" id="lastName">
-            <button onClick="handleRegister();">Register</button>
+<body class="bg">
+
+    <div class="divider scrolling-section">
+
+        <div class="logo-container">
+                <img class="logo" src="./images/motusredo-removebg.png" alt="logo">
         </div>
-        <p>Already have an account? <a href="./login.html">Login</a></p>
+        
+        <div class="form-container ">
+
+            <form>
+
+                <h1 class="form-title">Register</h1>
+
+                    <input class="form-input" placeholder="username" type="text" name="username" id="username">
+
+                    <input class="form-input" placeholder="password" type="password" name="password" id="password">
+
+                    <input class="form-input" placeholder="confirm password" type="password" name="passwordConfirm" id="passwordConfirm">
+
+                    <input class="form-input" placeholder="email" type="email" name="email" id="email">
+
+                    <input class="form-input" placeholder="first name" type="text" name="firstName" id="firstName">
+
+                    <input class="form-input" placeholder="middle name" type="text" name="middleName" id="middleName">
+
+                    <input class="form-input" placeholder="last name" type="text" name="lastName" id="lastName">
+
+                <button class="form-button" type="submit" id="register-button">Register</button>
+                <p>Already have an account? <a href="./login.html">Login</a></p>
+            </form>
+            
     </body>
 
 </html>

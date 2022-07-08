@@ -1,5 +1,11 @@
 // Module to Handle Cookies
 
+export function storeLoginSession(username,passwordHash){
+    // Store username and password hash as cookies.
+    setCookie("username",username,2);
+    setCookie("passwordHash",passwordHash,2);
+}
+
 // Set a Cookie
 export function setCookie(cName, cValue, expDays) {
     let date = new Date();
