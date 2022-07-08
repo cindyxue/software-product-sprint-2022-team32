@@ -1,4 +1,4 @@
-import {register} from "../api/Datastore-API.js";
+import {register,login} from "../api/Datastore-API.js";
 import {storeLoginSession} from "./Cookies.js"
 
 const clickBtn = document.getElementById("register-button")
@@ -28,10 +28,7 @@ async function handleRegister(){
 
     console.log(username, password, email, firstName, middleName, lastName)
 
-    // Encrypt the password, for debugging purposes its not being yet implemented.
-    const passwordHash = password;
-
-    const response = await register(username, passwordHash, email, firstName, middleName, lastName);
+    const response = await register(username, password, email, firstName, middleName, lastName);
     console.log(await response);
 
     if (await response.error) {
@@ -41,8 +38,12 @@ async function handleRegister(){
 
     alert("Registration successful!");
 
+    const user = await login(username,password);
+
+    console.log(user);
+
     // Store data
-    storeLoginSession(username,passwordHash)
+    storeLoginSession(username,await user.success.passwordHash);
 
     window.location.href = "/debugger.html";
 };

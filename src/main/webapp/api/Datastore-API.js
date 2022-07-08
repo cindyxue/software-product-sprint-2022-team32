@@ -54,10 +54,22 @@ export async function getUser(username, passwordHash){
     If the username and passwordHash credentials are valid, returns a json matching the user defined in the database.
     If not, alerts: alert("Something Went Wrong: " + response.error);
     */
-   
-    const jsonResponse = await login(username, passwordHash);
+
+    const payload = {
+        username: username, passwordHash: passwordHash
+    }
+    
+    const response = await fetch('/api/get-user', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
+
+    const jsonResponse = await response.json();
     if (await jsonResponse.error) {
-        alert("Something Went Wrong: " + response.error);
+        alert("Something Went Wrong: " + jsonResponse.error);
     }
     else{
         const user = jsonResponse.success;
