@@ -31,8 +31,6 @@
         height: 100%;
         width: 100%;
         bottom: 0;
-        overflow-y: scroll;
-
     }
     .form-input{
         padding: 10px 10px;
@@ -129,3 +127,14 @@
     background: var(--seablue);
 }
 
+.scrolling-section {
+    overflow: scroll;
+}
+
+.scrolling-section::-webkit-scrollbar {
+    display: none;
+}
+.scrolling-section {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
