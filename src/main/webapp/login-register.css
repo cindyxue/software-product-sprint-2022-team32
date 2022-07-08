@@ -174,3 +174,19 @@ select:-webkit-autofill:focus {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+.invalid-field{
+    color: red;
+}
+.invalid-field::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+  }
+  
+  .invalid-field:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: red;
+  }
+  
+  .invalid-field::-ms-input-placeholder { /* Microsoft Edge */
+    color: red;
+  }

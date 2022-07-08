@@ -3,10 +3,20 @@ import {storeLoginSession} from "./Cookies.js"
 
 const clickBtn = document.getElementById("login-button")
 
+
+
 async function handleLogin(){
     // Get data from form
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
+
+    // Validate data
+    if(username == ""){
+        // Change class of input to red
+        alert("Username is required");
+        document.getElementById("username").classList.add("is-invalid");
+        return;
+    }
 
     console.log(username, password)
 
