@@ -103,6 +103,7 @@
 }
 
 .form-button {
+    width: 100%;
     display: inline-block;
     padding: 13px 12px;
     margin-bottom: 5px;
