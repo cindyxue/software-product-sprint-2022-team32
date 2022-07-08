@@ -44,6 +44,7 @@
     .width-definer{
         width: min(300px, 80vw);
         font-size: 15px;
+        text-align: center;
     }
 }
 
@@ -174,3 +175,27 @@ select:-webkit-autofill:focus {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+.invalid-field{
+    border: 1px solid red;
+    color: red;
+}
+.invalid-field::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+  }
+  
+  .invalid-field:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: red;
+  }
+  
+  .invalid-field::-ms-input-placeholder { /* Microsoft Edge */
+    color: red;
+  }
+
+  .error-text{
+      margin-top: 3px;
+      margin-bottom: 3px;
+      color:red;
+      font-size: 0.95em;
+  }
