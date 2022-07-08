@@ -10,26 +10,33 @@ const firstNameField = document.getElementById("firstName").value;
 const middleNameField = document.getElementById("middleName").value;
 const lastNameField = document.getElementById("lastName").value;
 
+const allFields = ["username","password","passwordConfirm","email","firstName","middleName","lastName"];
+
 const clickBtn = document.getElementById("register-button")
 
 function handleError(txt){
     cleanErrors();
     updateText(txt,"errorField")
-    if (txt === "Invalid username."){
+    if (txt === "Username already taken."){
         userField.classList.add("invalid-field");
         return;
     }
-    if (txt === "Invalid password."){
-        passwordField.classList.add("invalid-field");
+    if (txt === "Email already taken."){
+        emailField.classList.add("invalid-field");
         return;
     }    
-    userField.classList.add("invalid-field");
-    passwordField.classList.add("invalid-field");
+    allFields.forEach(field => {
+        document.getElementById(field).classList.add("invalid-field");
+    }
+    );
 }
 
 function cleanErrors(){
-    userField.classList.remove("invalid-field");
-    passwordField.classList.remove("invalid-field");
+    
+    allFields.forEach(field => {
+        document.getElementById(field).classList.remove("invalid-field");
+    }
+    );
     updateText("","errorField")
 }
 
@@ -37,31 +44,25 @@ function cleanError(fieldName){
     document.getElementById(fieldName).classList.remove("invalid-field");
 }
 
-function validateData(username, password){
+function validateData(password, passwordConfirm){
     let isValid = true;
     // Validate data
-    if(username == ""){
-        // Change class of input to red
-        userField.classList.add("invalid-field");
-        isValid = false;
+    allFields.forEach(field => {
+        if(document.getElementById(field).value === "" && field !== "middleName"){
+            // Change class of input to red
+            document.getElementById(field).classList.add("invalid-field");
+            isValid = false;
+        }
     }
-    if(password == ""){
-        // Change class of input to red
-        passwordField.classList.add("invalid-field");
-        isValid = false;
-    }
+    );
+
     if (!isValid){
         updateText("Please fill all required fields.","errorField")
+        return false;
     }
 
 
-    // Check if passwords match
-    if (password !== passwordConfirm) {
-        alert("Passwords do not match!");
-        return;
-    }
-
-    return isValid;
+    return true;
 }
 
 async function handleRegister(){
@@ -75,15 +76,12 @@ async function handleRegister(){
     const middleName = middleNameField.value;
     const lastName = lastNameField.value;
 
-    validateData(username,password,passwordConfirm,email,firstName,middleName,lastName);
-
-    console.log(username, password, email, firstName, middleName, lastName)
+    validateData(password, passwordConfirm);
 
     const response = await register(username, password, email, firstName, middleName, lastName);
-    console.log(await response);
 
     if (await response.error) {
-        handleRegisterError(response.error);
+        handleError(response.error);
         return;
     }
 
@@ -104,3 +102,64 @@ clickBtn.addEventListener('click', e =>{
     e.stopPropagation();
     handleRegister();
 })
+
+allFields.forEach(field => {
+    document.getElementById(field).addEventListener('input',e=>{
+        cleanError(field);
+    }
+    );
+}
+);
+
+passwordField.addEventListener('input',e=>{
+    // Check if passwords match
+    if (passwordField.value !== passwordConfirmField.value && passwordConfirmField.value !== ""){
+        passwordConfirmField.classList.add("invalid-field");
+        updateText("Passwords do not match.","errorField")
+        return;
+    }
+    
+    // Validate strong password
+    if (passwordField.value.length < 8){
+        passwordField.classList.add("invalid-field");
+        updateText("Password must be at least 8 characters long.","errorField");
+        return;
+    }
+    if (passwordField.value.length > 20){
+        passwordField.classList.add("invalid-field");
+        updateText("Password must be less than 20 characters long.","errorField");
+        return;
+    }
+    if (!passwordField.value.match(/[a-z]/)){
+        passwordField.classList.add("invalid-field");
+        updateText("Password must contain at least one lowercase letter.","errorField");
+        return;
+    }
+    if (!passwordField.value.match(/[A-Z]/)){
+        passwordField.classList.add("invalid-field");
+        updateText("Password must contain at least one uppercase letter.","errorField");
+        return;
+    }
+    if (!passwordField.value.match(/[0-9]/)){
+        passwordField.classList.add("invalid-field");
+        updateText("Password must contain at least one number.","errorField");
+        return;
+    }
+    if (!passwordField.value.match(/[^a-zA-Z0-9]/)){
+        passwordField.classList.add("invalid-field");
+        updateText("Password must contain at least one special character.","errorField");
+        return;
+    }
+}
+)
+
+emailField.addEventListener('input',e=>{
+    // Validate email
+    if (!emailField.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)){
+        emailField.classList.add("invalid-field");
+        updateText("Invalid email.","errorField");
+        return;
+    }
+}
+)
+

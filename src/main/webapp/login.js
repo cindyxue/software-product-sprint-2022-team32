@@ -61,16 +61,13 @@ async function handleLogin(){
         return;
     }
 
-    console.log(username, password)
-
     const response = await login(username, password);
-    console.log(await response)
 
     if (await response.error) {
         handleError(response.error);
         return;
     }
-    
+
     // Store data
     storeLoginSession(username,await response.success.passwordHash)
 
