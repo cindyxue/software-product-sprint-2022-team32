@@ -10,10 +10,7 @@ async function handleLogin(){
 
     console.log(username, password)
 
-    // Encrypt the password, for debugging purposes its not being yet implemented.
-    const passwordHash = password;
-
-    const response = await login(username, passwordHash);
+    const response = await login(username, password);
     console.log(await response)
 
     if (await response.error) {
@@ -24,7 +21,7 @@ async function handleLogin(){
     alert("Login successful!");
 
     // Store data
-    storeLoginSession(username,passwordHash)
+    storeLoginSession(username,await response.success.passwordHash)
 
     window.location.href = "/debugger.html";        
     
