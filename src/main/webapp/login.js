@@ -1,5 +1,6 @@
 import {login} from "../api/Datastore-API.js";
-import {storeLoginSession} from "./Cookies.js"
+import {storeLoginSession} from "./Cookies.js";
+import {updateText} from "./updateText.js";
 
 const clickBtn = document.getElementById("login-button")
 const userField = document.getElementById("username")
@@ -19,15 +20,6 @@ function handleError(txt){
     }    
     userField.classList.add("invalid-field");
     passwordField.classList.add("invalid-field");
-}
-
-function updateText(txt,fieldName){
-    var fieldNameElement = document.getElementById(fieldName);
-    while(fieldNameElement.childNodes.length >= 1) {
-        fieldNameElement.removeChild(fieldNameElement.firstChild);
-    }
-    fieldNameElement.appendChild(fieldNameElement.ownerDocument.createTextNode(txt));
-    console.log(txt);
 }
 
 function cleanErrors(){

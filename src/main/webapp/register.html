@@ -41,9 +41,11 @@ String lastName = request.getParameter("lastName");
 
                 <input class="form-input" placeholder="first name" type="text" name="firstName" id="firstName">
 
-                <input class="form-input" placeholder="middle name" type="text" name="middleName" id="middleName">
+                <input class="form-input" placeholder="middle name (optional)" type="text" name="middleName" id="middleName">
 
                 <input class="form-input" placeholder="last name" type="text" name="lastName" id="lastName">
+
+                <div class="error-text" id="errorField"></div>
 
                 <button class="form-button" type="submit" id="register-button">Register</button>
                 <p class = "width-definer">Already have an account? <a href="./login.html">Login</a></p>
