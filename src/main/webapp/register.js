@@ -19,7 +19,7 @@ function handleError(txt){
     cleanErrors();
     updateText(txt,"errorField")
     if (txt === "Username already taken."){
-        userField.classList.add("invalid-field");
+        usernameField.classList.add("invalid-field");
         return;
     }
     if (txt === "Email already taken."){
