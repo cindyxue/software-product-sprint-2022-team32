@@ -1,6 +1,7 @@
 import {login} from "../api/Datastore-API.js";
 import {storeLoginSession} from "./Cookies.js";
 import {updateText} from "./updateText.js";
+import {shakeAnimation} from "./shakeAnimation.js";
 
 const clickBtn = document.getElementById("login-button");
 const userField = document.getElementById("username");
@@ -52,24 +53,6 @@ function validateData(username, password){
     return isValid;
 }
 
-function cleanShakes(invalidFields){
-    Array.from(invalidFields).forEach(field => {
-        field.classList.remove("shake");
-    });
-}
-
-function doShake(invalidFields){
-    // Shake all invalid fields
-    Array.from(invalidFields).forEach(field => {
-        field.classList.add("shake");
-    });
-}
-
-function shakeAnimation(invalidFields){
-    doShake(invalidFields);
-    cleanShakes(invalidFields);
-}
-
 async function handleLogin(){
     
     // Get data from form
@@ -77,7 +60,7 @@ async function handleLogin(){
     const password = passwordField.value;
     const invalidFields = document.getElementsByClassName("invalid-field");
     if (invalidFields.length > 0){
-        shakeAnimation();
+        shakeAnimation(invalidFields);
         return;
     }
     if (!validateData(username, password)){

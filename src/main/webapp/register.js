@@ -1,6 +1,7 @@
 import {register,login} from "../api/Datastore-API.js";
 import {storeLoginSession} from "./Cookies.js"
 import {updateText} from "./updateText.js";
+import { shakeAnimation } from "./shake.js";
 
 const usernameField = document.getElementById("username");
 const passwordField = document.getElementById("password");
@@ -60,19 +61,6 @@ function validateData(){
     return true;
 }
 
-async function cleanShakes(invalidFields){
-    Array.from(invalidFields).forEach(field => {
-        field.classList.remove("shake");
-    });
-}
-
-async function doShake(invalidFields){
-    // Shake all invalid fields
-    Array.from(invalidFields).forEach(field => {
-        field.classList.add("shake");
-    });
-}
-
 async function handleRegister(){
     // Get data from form
     const username = usernameField.value;
@@ -84,7 +72,7 @@ async function handleRegister(){
     // Check that there are not invalid fields
     const invalidFields = document.getElementsByClassName("invalid-field");
     if (invalidFields.length > 0){
-        cleanShakes(invalidFields).then(doShake(invalidFields));
+        shakeAnimation(invalidFields);
         return;
     }
     if (!validateData()){
