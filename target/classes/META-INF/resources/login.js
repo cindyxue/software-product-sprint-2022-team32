@@ -52,13 +52,38 @@ function validateData(username, password){
     return isValid;
 }
 
+function cleanShakes(invalidFields){
+    Array.from(invalidFields).forEach(field => {
+        field.classList.remove("shake");
+    });
+}
+
+function doShake(invalidFields){
+    // Shake all invalid fields
+    Array.from(invalidFields).forEach(field => {
+        field.classList.add("shake");
+    });
+}
+
+function shakeAnimation(invalidFields){
+    doShake(invalidFields);
+    cleanShakes(invalidFields);
+}
+
 async function handleLogin(){
+    
     // Get data from form
     const username = userField.value;
     const password = passwordField.value;
+    const invalidFields = document.getElementsByClassName("invalid-field");
+    if (invalidFields.length > 0){
+        shakeAnimation();
+        return;
+    }
     if (!validateData(username, password)){
         return;
     }
+    
     const response = await login(username, password);
     if (await response.error) {
         handleError(response.error);

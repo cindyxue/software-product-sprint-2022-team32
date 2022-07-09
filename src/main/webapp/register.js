@@ -32,19 +32,16 @@ function handleError(txt){
 }
 
 function cleanErrors(){
-    
     allFields.forEach(field => {
         document.getElementById(field).classList.remove("invalid-field");
     }
     );
     updateText("","errorField")
 }
-
 function cleanError(fieldName){
     document.getElementById(fieldName).classList.remove("invalid-field");
     updateText("","errorField");
 }
-
 function validateData(){
     let isValid = true;
     // Validate data
@@ -56,18 +53,27 @@ function validateData(){
         }
     }
     );
-
     if (!isValid){
         updateText("Please fill all required fields.","errorField")
         return false;
     }
-
-
     return true;
 }
 
+async function cleanShakes(invalidFields){
+    Array.from(invalidFields).forEach(field => {
+        field.classList.remove("shake");
+    });
+}
+
+async function doShake(invalidFields){
+    // Shake all invalid fields
+    Array.from(invalidFields).forEach(field => {
+        field.classList.add("shake");
+    });
+}
+
 async function handleRegister(){
-    console.log("Form submitted.")
     // Get data from form
     const username = usernameField.value;
     const password = passwordField.value;
@@ -75,37 +81,23 @@ async function handleRegister(){
     const firstName = firstNameField.value;
     const middleName = middleNameField.value;
     const lastName = lastNameField.value;
-
-    if (!validateData()){
-        return;
-    }
-
     // Check that there are not invalid fields
     const invalidFields = document.getElementsByClassName("invalid-field");
     if (invalidFields.length > 0){
-        // Shake all invalid fields
-        invalidFields.forEach(field => {
-            field.classList.add("shake-horizontal");
-        }
-        );
+        cleanShakes(invalidFields).then(doShake(invalidFields));
         return;
     }
-
-
+    if (!validateData()){
+        return;
+    }
     const response = await register(username, password, email, firstName, middleName, lastName);
-
     if (await response.error) {
         handleError(response.error);
         return;
     }
-
     const user = await login(username,password);
-
-    console.log(user);
-
     // Store data
     storeLoginSession(username,await user.success.passwordHash);
-
     window.location.href = "/debugger.html";
 };
 
