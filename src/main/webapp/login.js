@@ -1,7 +1,7 @@
 import {login} from "../api/Datastore-API.js";
 import {storeLoginSession} from "./Cookies.js";
 import {updateText} from "./updateText.js";
-import {shakeAnimation} from "./shakeAnimation.js";
+import { shakeAnimation } from "./shake.js";
 
 const clickBtn = document.getElementById("login-button");
 const userField = document.getElementById("username");
