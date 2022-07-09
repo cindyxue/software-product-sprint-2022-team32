@@ -80,6 +80,18 @@ async function handleRegister(){
         return;
     }
 
+    // Check that there are not invalid fields
+    const invalidFields = document.getElementsByClassName("invalid-field");
+    if (invalidFields.length > 0){
+        // Shake all invalid fields
+        invalidFields.forEach(field => {
+            field.classList.add("shake-horizontal");
+        }
+        );
+        return;
+    }
+
+
     const response = await register(username, password, email, firstName, middleName, lastName);
 
     if (await response.error) {
