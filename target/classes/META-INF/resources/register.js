@@ -1,6 +1,7 @@
 import {register,login} from "../api/Datastore-API.js";
 import {storeLoginSession} from "./Cookies.js"
 import {updateText} from "./updateText.js";
+import { shakeAnimation } from "./shake.js";
 
 const usernameField = document.getElementById("username");
 const passwordField = document.getElementById("password");
@@ -18,7 +19,7 @@ function handleError(txt){
     cleanErrors();
     updateText(txt,"errorField")
     if (txt === "Username already taken."){
-        userField.classList.add("invalid-field");
+        usernameField.classList.add("invalid-field");
         return;
     }
     if (txt === "Email already taken."){
@@ -32,19 +33,16 @@ function handleError(txt){
 }
 
 function cleanErrors(){
-    
     allFields.forEach(field => {
         document.getElementById(field).classList.remove("invalid-field");
     }
     );
     updateText("","errorField")
 }
-
 function cleanError(fieldName){
     document.getElementById(fieldName).classList.remove("invalid-field");
     updateText("","errorField");
 }
-
 function validateData(){
     let isValid = true;
     // Validate data
@@ -56,18 +54,14 @@ function validateData(){
         }
     }
     );
-
     if (!isValid){
         updateText("Please fill all required fields.","errorField")
         return false;
     }
-
-
     return true;
 }
 
 async function handleRegister(){
-    console.log("Form submitted.")
     // Get data from form
     const username = usernameField.value;
     const password = passwordField.value;
@@ -75,25 +69,23 @@ async function handleRegister(){
     const firstName = firstNameField.value;
     const middleName = middleNameField.value;
     const lastName = lastNameField.value;
-
+    // Check that there are not invalid fields
+    const invalidFields = document.getElementsByClassName("invalid-field");
+    if (invalidFields.length > 0){
+        shakeAnimation(invalidFields);
+        return;
+    }
     if (!validateData()){
         return;
     }
-
     const response = await register(username, password, email, firstName, middleName, lastName);
-
     if (await response.error) {
         handleError(response.error);
         return;
     }
-
     const user = await login(username,password);
-
-    console.log(user);
-
     // Store data
     storeLoginSession(username,await user.success.passwordHash);
-
     window.location.href = "/debugger.html";
 };
 
