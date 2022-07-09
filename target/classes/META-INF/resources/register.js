@@ -149,6 +149,7 @@ function validateStrongPassword(){
     });
     passwordField.addEventListener(evt,e=>{
         cleanError("password");
+        cleanError("passwordConfirm");
         if (!validateStrongPassword()){
             return;
         }
