@@ -183,20 +183,24 @@ select:-webkit-autofill:focus {
 .invalid-field::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: red;
     opacity: 1; /* Firefox */
-  }
-  
+}
+
   .invalid-field:-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: red;
-  }
-  
+}
+
   .invalid-field::-ms-input-placeholder { /* Microsoft Edge */
     color: red;
-  }
+}
 
-  .error-text{
-      margin-top: 3px;
-      margin-bottom: 3px;
-      color:red;
-      font-size: 0.95em;
-      width: min(300px, 80vw);
-  }
+.error-text{
+    margin-top: 3px;
+    margin-bottom: 3px;
+    color:red;
+    font-size: 0.95em;
+    width: min(300px, 80vw);
+}
+
+.shake-horizontal{
+    animation: shake-horizontal 0.5s;
+}
