@@ -2,13 +2,13 @@ import {register,login} from "../api/Datastore-API.js";
 import {storeLoginSession} from "./Cookies.js"
 import {updateText} from "./updateText.js";
 
-const usernameField = document.getElementById("username").value;
-const passwordField = document.getElementById("password").value;
-const passwordConfirmField = document.getElementById("passwordConfirm").value;
-const emailField = document.getElementById("email").value;
-const firstNameField = document.getElementById("firstName").value;
-const middleNameField = document.getElementById("middleName").value;
-const lastNameField = document.getElementById("lastName").value;
+const usernameField = document.getElementById("username");
+const passwordField = document.getElementById("password");
+const passwordConfirmField = document.getElementById("passwordConfirm");
+const emailField = document.getElementById("email");
+const firstNameField = document.getElementById("firstName");
+const middleNameField = document.getElementById("middleName");
+const lastNameField = document.getElementById("lastName");
 
 const allFields = ["username","password","passwordConfirm","email","firstName","middleName","lastName"];
 
@@ -42,13 +42,14 @@ function cleanErrors(){
 
 function cleanError(fieldName){
     document.getElementById(fieldName).classList.remove("invalid-field");
+    updateText("","errorField");
 }
 
-function validateData(password, passwordConfirm){
+function validateData(){
     let isValid = true;
     // Validate data
     allFields.forEach(field => {
-        if(document.getElementById(field).value === "" && field !== "middleName"){
+        if(document.getElementById(field).value == "" && field != "middleName"){
             // Change class of input to red
             document.getElementById(field).classList.add("invalid-field");
             isValid = false;
@@ -70,13 +71,14 @@ async function handleRegister(){
     // Get data from form
     const username = usernameField.value;
     const password = passwordField.value;
-    const passwordConfirm = passwordConfirmField.value;
     const email = emailField.value;
     const firstName = firstNameField.value;
     const middleName = middleNameField.value;
     const lastName = lastNameField.value;
 
-    validateData(password, passwordConfirm);
+    if (!validateData()){
+        return;
+    }
 
     const response = await register(username, password, email, firstName, middleName, lastName);
 
@@ -84,8 +86,6 @@ async function handleRegister(){
         handleError(response.error);
         return;
     }
-
-    alert("Registration successful!");
 
     const user = await login(username,password);
 
@@ -103,63 +103,82 @@ clickBtn.addEventListener('click', e =>{
     handleRegister();
 })
 
-allFields.forEach(field => {
-    document.getElementById(field).addEventListener('input',e=>{
-        cleanError(field);
-    }
-    );
-}
-);
 
-passwordField.addEventListener('input',e=>{
-    // Check if passwords match
-    if (passwordField.value !== passwordConfirmField.value && passwordConfirmField.value !== ""){
-        passwordConfirmField.classList.add("invalid-field");
-        updateText("Passwords do not match.","errorField")
-        return;
-    }
-    
+function validateStrongPassword(){
     // Validate strong password
     if (passwordField.value.length < 8){
         passwordField.classList.add("invalid-field");
         updateText("Password must be at least 8 characters long.","errorField");
-        return;
+        return false;
     }
     if (passwordField.value.length > 20){
         passwordField.classList.add("invalid-field");
         updateText("Password must be less than 20 characters long.","errorField");
-        return;
+        return false;
     }
     if (!passwordField.value.match(/[a-z]/)){
         passwordField.classList.add("invalid-field");
         updateText("Password must contain at least one lowercase letter.","errorField");
-        return;
+        return false;
     }
     if (!passwordField.value.match(/[A-Z]/)){
         passwordField.classList.add("invalid-field");
         updateText("Password must contain at least one uppercase letter.","errorField");
-        return;
+        return false;
     }
     if (!passwordField.value.match(/[0-9]/)){
         passwordField.classList.add("invalid-field");
         updateText("Password must contain at least one number.","errorField");
-        return;
+        return false;
     }
     if (!passwordField.value.match(/[^a-zA-Z0-9]/)){
         passwordField.classList.add("invalid-field");
         updateText("Password must contain at least one special character.","errorField");
-        return;
+        return false;
     }
+    return true;
 }
-)
 
-emailField.addEventListener('input',e=>{
-    // Validate email
-    if (!emailField.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)){
-        emailField.classList.add("invalid-field");
-        updateText("Invalid email.","errorField");
-        return;
-    }
-}
-)
+
+['change','input'].forEach(  function(evt) {
+    allFields.forEach(field => {
+        document.getElementById(field).addEventListener(evt,e=>{
+            cleanError(field);
+        }
+        );
+    });
+    passwordField.addEventListener(evt,e=>{
+        cleanError("password");
+        if (!validateStrongPassword()){
+            return;
+        }
+        // Check if passwords match
+        if (passwordField.value != passwordConfirmField.value && passwordConfirmField.value != ""){
+            passwordConfirmField.classList.add("invalid-field");
+            updateText("Passwords do not match.","errorField")
+            return;
+        }
+    });
+    passwordConfirmField.addEventListener(evt,e=>{
+        cleanError("passwordConfirm");
+        // Check if passwords match
+        if (passwordField.value != passwordConfirmField.value && passwordConfirmField.value != "" && validateStrongPassword()){
+            passwordConfirmField.classList.add("invalid-field");
+            updateText("Passwords do not match.","errorField")
+            return;
+        }
+    });
+    emailField.addEventListener(evt,e=>{
+        cleanError("email");
+        // Validate email
+        if (!emailField.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)){
+            emailField.classList.add("invalid-field");
+            updateText("Invalid email.","errorField");
+            return;
+        }
+    });
+});
+
+
+
 

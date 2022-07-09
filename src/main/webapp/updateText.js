@@ -4,5 +4,4 @@ export function updateText(txt,fieldName){
         fieldNameElement.removeChild(fieldNameElement.firstChild);
     }
     fieldNameElement.appendChild(fieldNameElement.ownerDocument.createTextNode(txt));
-    console.log(txt);
 }
