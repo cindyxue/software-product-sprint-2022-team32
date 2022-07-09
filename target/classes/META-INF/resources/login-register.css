@@ -198,4 +198,5 @@ select:-webkit-autofill:focus {
       margin-bottom: 3px;
       color:red;
       font-size: 0.95em;
+      width: min(300px, 80vw);
   }
