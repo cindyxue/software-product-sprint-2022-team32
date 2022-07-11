@@ -1,6 +1,6 @@
 import {getUser,getUserCalendar,getUserJournal,getUserPanicButton,addDayToCalendar,addEntryToJournal,addOneToPanicButton,deleteCurrentUser} from "../api/Datastore-API.js";
-import {getCurrentUsername,getCurrentPasswordHash,deleteCookie} from "./Cookies.js"
-import {updateText} from "./updateText.js";
+import {getCurrentUsername,getCurrentPasswordHash,deleteCookie} from "../Cookies.js"
+import {updateText} from "../updateText.js";
 
 window.onLoad = async function(){
     const currentUsername = getCurrentUsername();
