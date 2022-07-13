@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Motus</title>
+    <link rel="stylesheet" href="panic.css">
+  </head>
+  <body>
+    <div id="content">
+      <h1>Welcome to Motus!</h1>
+
+      <panic-button></panic-button>
+
+      <button id= "button" onclick="openPopup()">Panic Button</button>
+
+      <div class= "popup" id="popup">
+          <img src= "/panic/images/PanicIcon.jpg" width = "100" height="100">
+          <h2>Counsellor</h2> 
+          <p>Would like to talk to a professional counsellor?</p>
+          <button onclick= "window.open('/chat/chat.html')">Yes</button>
+          <button onclick="openPopupTwo()">No</button>
+      </div>
+
+      <div class="popup" id="popup2">
+        <img src= "/panic/images/PanicIcon.jpg" width = "100" height="100">
+        <h2>Local clinics</h2> 
+        <p>Would like to find local clinics?</p>
+        <button onclick= "window.open('/maps/maps.html')">Yes</button>
+        <button onclick="closePopupTwo()">No</button>
+      </div>
+    </div>
+    <script src="panic.js"></script>
+  </body>
+</html>
