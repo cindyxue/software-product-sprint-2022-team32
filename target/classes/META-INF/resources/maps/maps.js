@@ -23,7 +23,7 @@ function createClinicsMap() {
           {center: {lat: 37.522, lng: -122.084}, zoom: 10});
   
       clinics.forEach((clinic) => {
-        clinicMarker= new google.maps.Marker(
+        const clinicMarker= new google.maps.Marker(
             {position: {lat: clinic.lat, lng: clinic.lng}, map: map, title: clinic.name});
 
         const clinicInfoWindow = new google.maps.InfoWindow({content: clinic.location});
