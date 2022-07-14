@@ -1,14 +1,14 @@
 // Module to handle the Datastore API - java servlets
 
-export async function login(username, passwordHash){
+export async function login(username, unhashedPassword){
     /*
-    String username, String passwordHash
+    String username, String unhashedPassword
     Returns a json, either json.error or json.success.
-    Json.success contains the user matching the username and passwordHash credentials.
+    Json.success contains the user matching the username and password credentials.
     */
     
     const payload = {
-        username: username, passwordHash: passwordHash
+        username: username, passwordHash: unhashedPassword
     }
     
     const response = await fetch('/api/login', {
@@ -24,15 +24,15 @@ export async function login(username, passwordHash){
     return json;
 }
 
-export async function register(username, passwordHash, email, firstName, middleName, lastName){
+export async function register(username, unhashedPassword, email, firstName, middleName, lastName){
     /*
-    String username, String passwordHash, String email, String firstName, String middleName, String lastName
+    String username, String unhashedPassword, String email, String firstName, String middleName, String lastName
     Returns a json, either json.error or json.success.
     Registers a new user if the username and email are not already in the database.
     */
 
     const payload = {
-        username: username, passwordHash: passwordHash, email: email, firstName: firstName, middleName: middleName, lastName: lastName
+        username: username, passwordHash: unhashedPassword, email: email, firstName: firstName, middleName: middleName, lastName: lastName
     }
 
     const response = await fetch('/api/register', {
@@ -48,15 +48,15 @@ export async function register(username, passwordHash, email, firstName, middleN
     return json;
 }
 
-export async function getUser(username, passwordHash){
+export async function getUser(username, hashedPassword){
     /*
-    String username, String passwordHash
+    String username, String hashedPassword
     If the username and passwordHash credentials are valid, returns a json matching the user defined in the database.
     If not, alerts: alert("Something Went Wrong: " + response.error);
     */
 
     const payload = {
-        username: username, passwordHash: passwordHash
+        username: username, passwordHash: hashedPassword
     }
     
     const response = await fetch('/api/get-user', {
@@ -77,15 +77,15 @@ export async function getUser(username, passwordHash){
     }
 }
 
-export async function deleteCurrentUser(username, passwordHash){
+export async function deleteCurrentUser(username, hashedPassword){
     /*
-    String username, String passwordHash
+    String username, String hashedPassword
     Returns a json, either json.error or json.success.
     Deletes the user matching the username and passwordHash credentials.
     */
 
     const payload = {
-        username: username, passwordHash: passwordHash
+        username: username, passwordHash: hashedPassword
     }
     
     const response = await fetch('/api/delete-user', {
@@ -101,14 +101,14 @@ export async function deleteCurrentUser(username, passwordHash){
     return json;
 }
 
-export async function addDayToCalendar(username, passwordHash, date, mood) {
+export async function addDayToCalendar(username, hashedPassword, date, mood) {
     /*
-    String username, String passwordHash, Day:{date:long(timestamp),mood:int} day
+    String username, String hashedPassword, String date ("yyyy-mm-dd"), Int mood
     Returns a json, either json.error or json.success.
     Adds the given day to the calend
     */
     
-    const user = await getUser(username, passwordHash);
+    const user = await getUser(username, hashedPassword);
     console.log("Retrieved user:", await user);
 
     const timestamp = new Date(date) * 1;
@@ -122,20 +122,20 @@ export async function addDayToCalendar(username, passwordHash, date, mood) {
 
     const prevEmail = await user.email;
 
-    const json = await updateUser(username, passwordHash, prevEmail, user);
+    const json = await updateUser(username, hashedPassword, prevEmail, user);
 
     return json;
 }
 
-export async function addEntryToJournal(username, passwordHash, message, date) {
+export async function addEntryToJournal(username, hashedPassword, message, date) {
     /*
-    String username, String passwordHash, String entry
+    String username, String hashedPassword, String message, String date ("yyyy-mm-dd")
     Returns a json, either json.error or json.success.
-    Adds the given entry to the journal of the user matching the username and passwordHash credentials.
+    Adds the given entry to the journal of the user matching the username and hashedPassword credentials.
     entry: { timestamp:long, message:string }
     */
     
-    const user = await getUser(username, passwordHash);
+    const user = await getUser(username, hashedPassword);
 
     const prevEmail = user.email;
 
@@ -150,19 +150,19 @@ export async function addEntryToJournal(username, passwordHash, message, date) {
 
     user.journal.push(entry);
 
-    const json = await updateUser(username, passwordHash, prevEmail, user);
+    const json = await updateUser(username, hashedPassword, prevEmail, user);
 
     return json;
 }
 
-export async function addOneToPanicButton(username, passwordHash){
+export async function addOneToPanicButton(username, hashedPassword){
     /*
-    String username, String passwordHash
+    String username, String hashedPassword
     Returns a json, either json.error or json.success.
-    Adds 1 to the panic button counter of the user matching the username and passwordHash credentials.
+    Adds 1 to the panic button counter of the user matching the username and hashedPassword credentials.
     */
 
-    const user = await getUser(username, passwordHash);
+    const user = await getUser(username, hashedPassword);
 
     const prevEmail = await user.email;
 
@@ -171,15 +171,15 @@ export async function addOneToPanicButton(username, passwordHash){
 
     console.log("Added one to panic button:",await user)
 
-    const json = await updateUser(username, passwordHash, prevEmail, user);
+    const json = await updateUser(username, hashedPassword, prevEmail, user);
 
     return json;
     
 }
 
-export async function updateUser(username, passwordHash, prevEmail, user){
+export async function updateUser(username, hashedPassword, prevEmail, user){
     /*
-        String username, String passwordHash, String prevEmail, 
+        String username, String hashedPassword, String prevEmail, 
         User: {
         username: string,
         passwordHash: string,
@@ -197,7 +197,7 @@ export async function updateUser(username, passwordHash, prevEmail, user){
    const payload = {
     user: user, 
     prevUsername: username, 
-    prevPasswordHash: passwordHash, 
+    prevPasswordHash: hashedPassword, 
     prevEmail: prevEmail
     }
 
@@ -216,42 +216,42 @@ export async function updateUser(username, passwordHash, prevEmail, user){
     return json;
 }
 
-export async function getUserCalendar(username, passwordHash){
+export async function getUserCalendar(username, hashedPassword){
     /*
-    String username, String passwordHash
+    String username, String hashedPassword
     Returns the calendar(array[day]) of the user matching the username and password.
     */
 
-    const user = await getUser(username, passwordHash);
+    const user = await getUser(username, hashedPassword);
     
     return user.calendar;
 }
 
-export async function  getUserJournal(username, passwordHash){
+export async function  getUserJournal(username, hashedPassword){
     /*
-    String username, String passwordHash
+    String username, String hashedPassword
     Returns the journal(array[entry: {timestamp: long, message: string}]) of the user matching the username and password.
     */
 
-    const user = await getUser(username, passwordHash);
+    const user = await getUser(username, hashedPassword);
     
     return user.journal;
 }
 
-export async function getUserPanicButton(username, passwordHash){
+export async function getUserPanicButton(username, hashedPassword){
     /*
-    String username, String passwordHash
+    String username, String hashedPassword
     Returns the panic button counter(int) of the user matching the username and password.
     */
 
-    const user = await getUser(username, passwordHash);
+    const user = await getUser(username, hashedPassword);
     
     return user.panicButtonPressed;
 }
 
-export async function queryJournalEntries(username, passwordHash, startingDate, endingDate){
+export async function queryJournalEntries(username, hashedPassword, startingDate, endingDate){
     /*
-    String username, String passwordHash, long startingDate, long endingDate
+    String username, String hashedPassword, String startingDate ("yyyy-mm-dd"), String endingDate ("yyyy-mm-dd")
     Returns the journal(array[entry: {timestamp: long, message: string}]) of the user matching the username and password.
     */
 
@@ -260,7 +260,7 @@ export async function queryJournalEntries(username, passwordHash, startingDate, 
 
     const payload = {
         username: username,
-        passwordHash: passwordHash,
+        passwordHash: hashedPassword,
         startingTimestamp: startingTimestamp,
         endingTimestamp: endingTimestamp
     }

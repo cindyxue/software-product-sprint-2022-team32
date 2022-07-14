@@ -51,13 +51,8 @@ window.addToJournal = async function addToJournal(){
     const currentUsername = getCurrentUsername();
     const currentPasswordHash = getCurrentPasswordHash();
 
-    console.log("Data:",currentUsername,currentPasswordHash);
-
     const date = document.getElementById("entry-date").value;
-
     const entry = document.getElementById("journal-entry").value;
-
-    console.log("New entry:", date, entry);
 
     const response = await addEntryToJournal(currentUsername, currentPasswordHash, entry, date);
 

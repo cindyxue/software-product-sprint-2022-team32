@@ -10,3 +10,7 @@ export function redirectToLoginIfNotLoggedIn(){
         window.location.href = "/login.html";  
     }
 }
+
+window.onLoad = function(){
+    redirectToLoginIfNotLoggedIn();
+}
