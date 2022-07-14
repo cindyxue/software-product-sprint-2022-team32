@@ -11,6 +11,6 @@ export function redirectToLoginIfNotLoggedIn(){
     }
 }
 
-window.onLoad = function(){
+window.redirectToLoginIfNotLoggedIn = function(){
     redirectToLoginIfNotLoggedIn();
 }
