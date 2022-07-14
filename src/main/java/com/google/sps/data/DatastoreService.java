@@ -27,10 +27,12 @@ public class DatastoreService {
         return cal;
     }
 
-    public List<String> ValueString2StringList(List<StringValue> journal){
-        List<String> jou = new ArrayList<String>();
+    public List<Entry> ValueString2StringList(List<StringValue> journal){
+        Gson g = new Gson();
+        List<Entry> jou = new ArrayList<Entry>();
         for (StringValue temp : journal) {
-            String entry = temp.get();
+            String o = temp.get();
+            Entry entry = g.fromJson(o, Entry.class);
             jou.add(entry);
         }
         return jou;
@@ -51,7 +53,7 @@ public class DatastoreService {
         List<StringValue> tempJournal = entity.getList("journal");
 
         List<Day> calendar = JSONlist2ObjectList(tempCalendar);
-        List<String> journal = ValueString2StringList(tempJournal);
+        List<Entry> journal = ValueString2StringList(tempJournal);
 
         long panicButtonPressed = entity.getLong("panicButtonPressed");
 
