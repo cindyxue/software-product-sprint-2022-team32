@@ -101,7 +101,7 @@ export async function deleteCurrentUser(username, passwordHash){
     return json;
 }
 
-export async function addDayToCalendar(username, passwordHash, day) {
+export async function addDayToCalendar(username, passwordHash, date, mood) {
     /*
     String username, String passwordHash, Day:{date:long(timestamp),mood:int} day
     Returns a json, either json.error or json.success.
@@ -110,6 +110,14 @@ export async function addDayToCalendar(username, passwordHash, day) {
     
     const user = await getUser(username, passwordHash);
     console.log("Retrieved user:", await user);
+
+    const timestamp = new Date(date) * 1;
+
+    const day = {
+        date: timestamp,
+        mood: mood
+    }
+
     await user.calendar.push(day);
 
     const prevEmail = await user.email;
@@ -119,18 +127,27 @@ export async function addDayToCalendar(username, passwordHash, day) {
     return json;
 }
 
-export async function addEntryToJournal(username, passwordHash, entry) {
+export async function addEntryToJournal(username, passwordHash, message, date) {
     /*
     String username, String passwordHash, String entry
     Returns a json, either json.error or json.success.
     Adds the given entry to the journal of the user matching the username and passwordHash credentials.
+    entry: { timestamp:long, message:string }
     */
     
     const user = await getUser(username, passwordHash);
 
     const prevEmail = user.email;
 
+    const timestamp = new Date(date) * 1;
+
     console.log("Retrieved user:", user);
+
+    const entry = {
+        date: timestamp,
+        message: message
+    }
+
     user.journal.push(entry);
 
     const json = await updateUser(username, passwordHash, prevEmail, user);
@@ -213,7 +230,7 @@ export async function getUserCalendar(username, passwordHash){
 export async function  getUserJournal(username, passwordHash){
     /*
     String username, String passwordHash
-    Returns the journal(array[string]) of the user matching the username and password.
+    Returns the journal(array[entry: {timestamp: long, message: string}]) of the user matching the username and password.
     */
 
     const user = await getUser(username, passwordHash);

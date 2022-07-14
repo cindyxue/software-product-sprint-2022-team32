@@ -35,12 +35,12 @@ public final class User {
     private final String lastName;
 
     private final List<Day> calendar;
-    private final List<String> journal;
+    private final List<Entry> journal;
     private final long panicButtonPressed;
 
     // Constructor for User
 
-    public User(String _username, String _email, String _passwordHash, String _firstName, String _middleName, String _lastName, List<Day> _calendar, List<String>_journal, long _panicButtonPressed) {
+    public User(String _username, String _email, String _passwordHash, String _firstName, String _middleName, String _lastName, List<Day> _calendar, List<Entry>_journal, long _panicButtonPressed) {
 
         username = _username;
         email = _email;
@@ -67,7 +67,7 @@ public final class User {
         lastName = _lastName;
         
         calendar = new ArrayList<Day>();
-        journal = new ArrayList<String>();
+        journal = new ArrayList<Entry>();
 
         panicButtonPressed = 0;
     }
@@ -103,7 +103,7 @@ public final class User {
         return this.calendar;
     }
 
-    public List<String> getJournal() {
+    public List<Entry> getJournal() {
         return this.journal;
     }
 
@@ -126,8 +126,11 @@ public final class User {
 
     public List<StringValue> getJournalAsStrings() {
         List<StringValue> journalAsStrings = new ArrayList<StringValue>();
-        for (String entry : this.journal) {
-            journalAsStrings.add(StringValue.of(entry));
+        Gson gson = new Gson();
+        for (Entry entry : this.journal) {
+            String json = gson.toJson(entry);
+            StringValue json2 = StringValue.of(json);
+            journalAsStrings.add(json2);
         }
         return journalAsStrings;
     }
@@ -138,7 +141,7 @@ public final class User {
         this.calendar.add(day);
     }
 
-    public void addEntryToJournal(String entry) {
+    public void addEntryToJournal(Entry entry) {
         this.journal.add(entry);
     }
 

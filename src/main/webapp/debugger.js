@@ -24,21 +24,13 @@ window.addToCalendar = async function addToCalendar(){
 
     console.log("Data:",currentUsername,currentPasswordHash);
 
-    const d = document.getElementById("day-date").value;
-
-    const date = new Date(d) * 1;
+    const date = document.getElementById("day-date").value;
 
     const mood = document.getElementById("day-mood").value;
 
-    // day = {date: long, mood: byte}
-    const day = {
-        date: date,
-        mood: mood
-    }
+    console.log("Input day:",date,mood);
 
-    console.log("Input day:",day);
-
-    const response = await addDayToCalendar(currentUsername, currentPasswordHash, day);
+    const response = await addDayToCalendar(currentUsername, currentPasswordHash, date, mood);
 
     console.log(await response);
     if (await response.error) {
@@ -57,11 +49,13 @@ window.addToJournal = async function addToJournal(){
 
     console.log("Data:",currentUsername,currentPasswordHash);
 
+    const date = document.getElementById("entry-date").value;
+
     const entry = document.getElementById("journal-entry").value;
 
-    console.log("New entry:", entry);
+    console.log("New entry:", date, entry);
 
-    const response = await addEntryToJournal(currentUsername, currentPasswordHash, entry);
+    const response = await addEntryToJournal(currentUsername, currentPasswordHash, entry, date);
 
     console.log(await response);
     if (await response.error) {
