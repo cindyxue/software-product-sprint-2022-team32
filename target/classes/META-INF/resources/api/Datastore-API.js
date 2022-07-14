@@ -248,3 +248,39 @@ export async function getUserPanicButton(username, passwordHash){
     
     return user.panicButtonPressed;
 }
+
+export async function queryJournalEntries(username, passwordHash, startingDate, endingDate){
+    /*
+    String username, String passwordHash, long startingDate, long endingDate
+    Returns the journal(array[entry: {timestamp: long, message: string}]) of the user matching the username and password.
+    */
+
+    const startingTimestamp = new Date(startingDate) * 1;
+    const endingTimestamp = new Date(endingDate) * 1;
+
+    const payload = {
+        username: username,
+        passwordHash: passwordHash,
+        startingTimestamp: startingTimestamp,
+        endingTimestamp: endingTimestamp
+    }
+
+        const response = await fetch('/api/query-journal', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+        
+        const json = await response.json();
+
+        if (await response.error) {
+            alert("query failed: " + response.error);
+        }
+        else{ 
+            return json.success;
+        }
+
+    
+}

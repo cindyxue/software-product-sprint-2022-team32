@@ -1,8 +1,12 @@
-import {getUser,getUserCalendar,getUserJournal,getUserPanicButton,addDayToCalendar,addEntryToJournal,addOneToPanicButton,deleteCurrentUser} from "../api/Datastore-API.js";
+import {getUser,getUserCalendar,getUserJournal,getUserPanicButton,addDayToCalendar,addEntryToJournal,addOneToPanicButton,deleteCurrentUser,queryJournalEntries} from "../api/Datastore-API.js";
 import {getCurrentUsername,getCurrentPasswordHash,deleteCookie} from "./Cookies.js"
 import {updateText} from "./updateText.js";
+import {redirectToLoginIfNotLoggedIn} from "./check_if_logged_in.js";
 
 window.onLoad = async function(){
+
+    redirectToLoginIfNotLoggedIn();
+
     const currentUsername = getCurrentUsername();
     const currentPasswordHash = getCurrentPasswordHash();
 
@@ -106,4 +110,19 @@ window.userDelete = async function userDelete(){
         deleteCookie("passwordHash");
         window.location.href = "/login.html";    
     }
+};
+
+window.queryJournal = async function queryJournal(){
+
+    const currentUsername = getCurrentUsername();
+    const currentPasswordHash = getCurrentPasswordHash();
+
+    const startingDate = document.getElementById("starting-date").value;
+    const endingDate = document.getElementById("ending-date").value;
+
+    const response = await queryJournalEntries(currentUsername, currentPasswordHash, startingDate, endingDate)
+
+    updateText(JSON.stringify(await response),"my-query")
+
+
 };
