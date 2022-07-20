@@ -11,12 +11,6 @@ const colors = ['mood-one','mood-two','mood-three','mood-four','mood-five']
 let currentDay;
 let colorSelection = 'unselected-color'; 
 
-
-//cal = getusercalender (not necessarily ordered)
-// sort using timestamp -> long
-//cal[i].mood -> should be from one to 5
-// addDayToCalendar
-
 //get login info
 const currentUsername = getCurrentUsername();
 const currentPasswordHash = getCurrentPasswordHash();
@@ -40,7 +34,7 @@ async function loadGrid() {
 }
 
 
-
+//takes in an int representing a mood from the database and return the corresponding class
 function colorSelectionToClass(moodNum) {
     switch (moodNum) {
         case 1:
@@ -64,6 +58,7 @@ function colorSelectionToClass(moodNum) {
     }
 }
 
+//takes in a string representing a mood and return the corresponding int
 function colorSelectionToNum(mood) {
     switch (mood) {
         case 'mood-one':
@@ -82,41 +77,51 @@ function colorSelectionToNum(mood) {
     return 0
 }
 
+//closes the day menu
 createDayMenuClose.addEventListener("click", function() {
 	createDayMenu.style.display = "none";
 });
 
+//closes the day update menu
 updateDayMenuClose.addEventListener("click", function() {
 	updateDayMenu.style.display = "none";
 });
 
+//opens the day menu
 function openCreateDayMenu(){
     createDayMenu.style.display = "flex";
 }
 
+//opens the day update menu
 function openUpdateDayMenu(){
     updateDayMenu.style.display = "flex";
 }
 
+//closes the day menu
 function closeCreateDayMenu(){
     createDayMenu.style.display = "none";
 }
 
+//closes the day update menu
 function closeUpdateDayMenu(){
     updateDayMenu.style.display = "none";
 }
 
+//sets the variable colorSelection to the string color
 function setColor(color){
     colorSelection = color
     console.log(colorSelection)
 }
 
+
+//creates a day with color and adds it to the grid
 async function createDay() {
     var newDay = document.createElement('li');
     newDay.classList.add('grid-block');
     changeColor(newDay, colorSelection)
     gridContainer.appendChild(newDay);
 
+    //adds the data of teh new day to the database
     const date = document.getElementById("date").value;
     const mood = colorSelectionToNum(colorSelection);
     const calRes = await addDayToCalendar(currentUsername, currentPasswordHash, date, mood);
@@ -130,12 +135,13 @@ async function createDay() {
     }
 }
 
+//changes the color when the day is updated in the update menu (not currently in use)
 async function updateDay() {
     changeColor(currentDay,colorSelection);
     closeUpdateDayMenu()
 }
 
-
+//checks that a color was selected by the user to make sure a day can be created
 function submitDay() {
     if (colorSelection !== 'unselected-color'){
         createDay()
@@ -144,16 +150,19 @@ function submitDay() {
     closeCreateDayMenu()
 }
 
+//changes the color of the day with a string color
 function changeColor(day, color) {
     day.classList.remove(...colors)
     day.classList.add(color);
 }
 
+//deletes the day from the frontend (not currently in use)
 function deleteDay() {
     currentDay.remove()
     closeUpdateDayMenu();
 }
 
+//checks if a day is clicked on and opens the update menu if so
 function detectDayClick(e){
     e = e || window.event;
     e = e.target || e.srcElement;
