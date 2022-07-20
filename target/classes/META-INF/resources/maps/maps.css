@@ -1,0 +1,9 @@
+#map {
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 4px solid #1C658C;
+    height: 500px;
+    width: 500px;
+}
