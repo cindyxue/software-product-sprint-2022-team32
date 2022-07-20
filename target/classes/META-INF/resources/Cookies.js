@@ -17,7 +17,6 @@ export function setCookie(cName, cValue, expDays) {
 // Get a Cookie with a given name
 export function getCookieValue(name){
     const value = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || '';
-    console.log("Cookie Retrieved:",value);
     return value;
 }
 
