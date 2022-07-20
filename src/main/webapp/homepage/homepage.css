@@ -73,16 +73,28 @@ header {
 }
 
 #quote-box {
-    /*border: solid red;*/
-    width: 50%;
-    padding-top: 10%;
-    padding-bottom: 10%;
-    padding-left: 10%;
-    
+    width: 70%;
+    margin: auto;
+    padding: 7%;
 }
 
 #quote {
     font-size: 2rem;
+}
+
+#greeter {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 1rem;
+
+    width: 50%;
+    margin: 5%;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 

@@ -57,7 +57,10 @@ function updateDay(color) {
 
 
 function submitDay() {
-    createDay()
+    if (colorSelection !== 'white'){
+        createDay()
+    }
+    
     closeCreateDayMenu()
 }
 

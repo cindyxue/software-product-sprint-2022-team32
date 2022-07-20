@@ -132,17 +132,18 @@ form {
     background-color: transparent;
 } 
 
-.delete-btn, .create-btn {
+.delete-btn, .create-btn, .submit-btn, .open-btn {
+    font-family: 'Courier New', Courier, monospace;
 	cursor: pointer;
 	border: none;
-	background-color: #398AB9;
+	background-color: #1C658C;;
 	color: white;
 	border-radius: 13%;
 	min-width: 60px;
 	min-height: 30px;
 }
 
-.create-btn {
+.open-btn {
  border-radius: 0px;    
 }
 

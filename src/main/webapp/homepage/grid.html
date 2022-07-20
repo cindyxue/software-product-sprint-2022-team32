@@ -12,7 +12,7 @@
     <nav-bar></nav-bar>
     
 
-    <button class="create-btn" onclick="openCreateDayMenu()">Add Day</button>
+    <button class="open-btn" onclick="openCreateDayMenu()">Add Day</button>
     <ul id="grid-container" class="grid-container"></ul>
 
     <div class="dark-menu-bg">
@@ -59,8 +59,8 @@
                 <textarea class="entry" id="journal-entry-update" placeholder="How was your day?"></textarea>
 
                 <form action="">
-                    <button type="button" class="create-btn" onclick="deleteDay()">Delete</button>
-                    <button type="button" class="create-btn" onclick="updateDay()">Update</button>
+                    <button type="button" class="delete-btn" onclick="deleteDay()">Delete</button>
+                    <button type="button" class="submit-btn" onclick="updateDay()">Update</button>
                 </form>
 
             </form>
