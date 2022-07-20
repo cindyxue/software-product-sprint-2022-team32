@@ -1,26 +1,48 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+    <head>
     <meta charset="UTF-8">
-    <title>My Happy Path</title>
-    <link rel="stylesheet" href="style.css">
-    <script type="module" src="./check_if_logged_in.js"></script>
-  </head>
-  <body onload="redirectToLoginIfNotLoggedIn();">
-    <div id="content">
-      <h1>Welcome to Happy Path!</h1>
-      <p>Click <a href="/chat">here</a> to see content created by server code.</p>
-      <p>Click here to get a random message:</p>
-      <button id= "button" onclick="openPopup()">Panic Button</button>
-      <div class= "popup" id="popup">
-          <img src= "/images/PanicIcon.jpg" width = "100" height="100">
-          <h2>Panic Mode!</h2> 
-          <p>Would like to talk to a professional counsellor?</p>
-          <button onclick= "window.open('/chat')">Yes</button>
-          <button onclick="closePopup()">No</button>
-      </div>
-    </div>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motus | Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="./script.js"></script>
+</head>
+<!--A simple login form
+String username = request.getParameter("username");
+String password = request.getParameter("password");
+-->
+<body class="bg">
 
-    <script src="script.js"></script>
-  </body>
+    <div class="divider scrolling-section">
+
+        <div class="logo-container">
+                <img class="logo" src="./images/motusredo-removebg.png" alt="logo">
+        </div>
+        <div class="form-container">
+            <form>
+
+                <h1 class="form-title">Login</h1>
+
+                <input class="form-input" placeholder="username" type="text" name="username" id="username">
+
+                <input class="form-input" placeholder="password" type="password" name="password" id="password">
+
+                <div class="error-text" id="errorField"></div>
+
+                <button class="form-button" type="submit" id="login-button">Login</button>
+                <p class = "width-definer">Don't have an account? <a href="./register.html">Register</a></p>
+                
+
+            </form>
+
+        </div>
+        
+
+
+    </div>
+    
+    
+    
+</body>
 </html>

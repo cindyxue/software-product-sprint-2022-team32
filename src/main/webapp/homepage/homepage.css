@@ -1,0 +1,106 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(238, 238, 238);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#logo-img {
+    height: 7vh;
+}
+
+.logo {
+    cursor: pointer;
+    margin-right: auto;
+}
+
+.nav-option, a {
+    font-weight: 500;
+    font-size: 16px;
+    color: rgb(57, 138, 185);
+    text-decoration: none;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 2.5rem 10%;
+}
+
+.nav-links {
+    list-style: none;
+    
+}
+
+.nav-links li a{
+    transition: all 0.5s ease 0s;
+    font-weight: bold;
+}
+
+.nav-links li a:hover{
+    color: rgb(28, 101, 140);
+}
+
+.nav-links li {
+    display: inline-block;
+    padding: 0px 4vw;
+}
+
+.modfooter {
+    background-color: rgb(28, 101, 140);
+    color: rgb(238, 238, 238);
+    padding: 2rem;
+    margin-top: auto;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.team-tittle, .github-item {
+    color:rgb(238, 238, 238);
+    background-color: rgb(28, 101, 140);
+    text-align: center;
+}
+
+#quote-box {
+    width: 70%;
+    margin: auto;
+    padding: 7%;
+}
+
+#quote {
+    font-size: 2rem;
+}
+
+#greeter {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 1rem;
+
+    width: 50%;
+    margin: 5%;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+
+
+
+
+

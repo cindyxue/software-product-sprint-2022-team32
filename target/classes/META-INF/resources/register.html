@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motus | Register</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="./register.js"></script>
+</head>
+<!--A simple register form
+String username = request.getParameter("username");
+String password = request.getParameter("password");
+String email = request.getParameter("email");
+String firstName = request.getParameter("firstName");
+String middleName = request.getParameter("middleName");
+String lastName = request.getParameter("lastName");
+-->
+
+<body class="bg">
+
+    <div class="divider scrolling-section">
+
+        <div class="logo-container">
+                <img class="logo" src="./images/motusredo-removebg.png" alt="logo">
+        </div>
+        
+        <div class="form-container ">
+
+            <form>
+
+                <h1 class="form-title">Register</h1>
+
+                <input class="form-input" placeholder="username" type="text" name="username" id="username">
+
+                <input class="form-input" placeholder="password" type="password" name="password" id="password">
+
+                <input class="form-input" placeholder="confirm password" type="password" name="passwordConfirm" id="passwordConfirm">
+
+                <input class="form-input" placeholder="email" type="email" name="email" id="email">
+
+                <input class="form-input" placeholder="first name" type="text" name="firstName" id="firstName">
+
+                <input class="form-input" placeholder="middle name (optional)" type="text" name="middleName" id="middleName">
+
+                <input class="form-input" placeholder="last name" type="text" name="lastName" id="lastName">
+
+                <div class="error-text" id="errorField"></div>
+
+                <button class="form-button" type="submit" id="register-button">Register</button>
+                <p class = "width-definer">Already have an account? <a href="./index.html">Login</a></p>
+            </form>
+            
+    </body>
+
+</html>

@@ -21,6 +21,7 @@ let popup = document.getElementById("popup");
 function openPopup(){
     popup.classList.add("open-popup");
 }
+
 let popup2= document.getElementById("popup2");
 
 function openPopupTwo(){
@@ -31,4 +32,5 @@ function openPopupTwo(){
 function closePopupTwo(){
     popup2.classList.remove("open-popup");
 }
+
 

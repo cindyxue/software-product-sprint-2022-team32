@@ -1,5 +1,5 @@
-import {register,login} from "../api/Datastore-API.js";
-import {storeLoginSession} from "./Cookies.js"
+import {register,login} from "./api/Datastore-API.js";
+import {storeLoginSession} from "../Cookies.js"
 import {updateText} from "./updateText.js";
 import { shakeAnimation } from "./shake.js";
 
