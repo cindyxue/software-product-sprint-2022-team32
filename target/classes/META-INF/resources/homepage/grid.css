@@ -143,8 +143,13 @@ form {
 	min-height: 30px;
 }
 
-.open-btn {
+.open-btn, .delete-btn {
  border-radius: 0px;    
+}
+
+.delete-btn {
+    background-color: #fa6e6e;
+    visibility: hidden;
 }
 
 .entry {
@@ -170,7 +175,12 @@ form {
 	border: 2px solid black;
 }
 
-#date {
+#date, #date-update {
 	margin-top: 1.5em;
+}
+
+.unselected-color {
+    background-color: lightgray;
+    color: lightgray;
 }
 

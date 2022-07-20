@@ -1,4 +1,4 @@
-import {getCurrentUsername} from "../Cookies.js"
+import {getCurrentUsername} from "../Cookies"
 import {updateText} from "../updateText.js";
 
 window.onLoad = async function(){
