@@ -9,7 +9,7 @@ class navbar extends HTMLElement {
                     <ul class="nav-links">
                         <li class="nav-option"><a href="homepage.html">Home</a></li>
                         <li class="nav-option"><a href="grid.html">Grid</a></li>
-                        <li class="nav-option"><a href="">Panic</a></li>
+                        <li class="nav-option"><a href="/panic/panic.html">Panic</a></li>
                     </ul>
                 </nav>
             </header>

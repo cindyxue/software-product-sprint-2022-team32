@@ -8,7 +8,6 @@
 body {
     display: flex;
     flex-direction: column;
-
     min-height: 100vh;
     font-family: 'Courier New', Courier, monospace;
 }
@@ -55,27 +54,6 @@ header {
     padding: 0px 4vw;
 }
 
-.grid-block {
-    height:0;
-    width:13%;
-    padding-bottom:10%;
-    border-radius: 10%;
-    border:solid red;
-}
-
-.grid-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    column-gap: 1%;
-    row-gap: 0.5rem;
-    border: solid purple;
-    list-style: none;
-    padding-right: 5rem;
-    padding-left: 5rem;
-}
-
 .modfooter {
     background-color: rgb(28, 101, 140);
     color: rgb(238, 238, 238);
@@ -95,16 +73,28 @@ header {
 }
 
 #quote-box {
-    /*border: solid red;*/
-    width: 50%;
-    padding-top: 10%;
-    padding-bottom: 10%;
-    padding-left: 10%;
-    
+    width: 70%;
+    margin: auto;
+    padding: 7%;
 }
 
 #quote {
     font-size: 2rem;
+}
+
+#greeter {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 1rem;
+
+    width: 50%;
+    margin: 5%;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
