@@ -1,7 +1,7 @@
 import {getUser,getUserCalendar,getUserJournal,getUserPanicButton,addDayToCalendar,addEntryToJournal,addOneToPanicButton,deleteCurrentUser,queryJournalEntries} from "../api/Datastore-API.js";
-import {getCurrentUsername,getCurrentPasswordHash,deleteCookie} from "./Cookies.js"
-import {updateText} from "./updateText.js";
-import {redirectToLoginIfNotLoggedIn} from "./check_if_logged_in.js";
+import {getCurrentUsername,getCurrentPasswordHash,deleteCookie} from "../Cookies.js"
+import {updateText} from "../updateText.js";
+import {redirectToLoginIfNotLoggedIn} from "../check_if_logged_in.js";
 
 window.onLoad = async function(){
 
