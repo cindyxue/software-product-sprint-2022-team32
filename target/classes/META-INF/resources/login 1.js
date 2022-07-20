@@ -74,7 +74,7 @@ async function handleLogin(){
     }
     // Store data
     storeLoginSession(username,await response.success.passwordHash)
-    window.location.href = "/debugger.html";        
+    window.location.href = "/homepage/homepage.html";        
 };
 
 clickBtn.addEventListener('click', e =>{
