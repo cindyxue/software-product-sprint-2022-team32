@@ -15,7 +15,7 @@ let colorSelection = 'unselected-color';
 const currentUsername = getCurrentUsername();
 const currentPasswordHash = getCurrentPasswordHash();
 
-async function loadGrid() {
+window.loadGrid = async function loadGrid() {
     //get array of days
     const userCal = JSON.parse(await getUserCalendar(currentUsername,currentPasswordHash));
     console.log(userCal)
@@ -113,7 +113,6 @@ function setColor(color){
     console.log(colorSelection)
 }
 
-
 //creates a day with color and adds it to the grid
 async function createDay() {
     var newDay = document.createElement('li');
@@ -121,7 +120,7 @@ async function createDay() {
     changeColor(newDay, colorSelection)
     gridContainer.appendChild(newDay);
 
-    //adds the data of teh new day to the database
+    //adds the data of the new day to the database
     const date = document.getElementById("date").value;
     const mood = colorSelectionToNum(colorSelection);
     const calRes = await addDayToCalendar(currentUsername, currentPasswordHash, date, mood);
@@ -172,5 +171,3 @@ function detectDayClick(e){
         openUpdateDayMenu()
     }
 }
-
-
