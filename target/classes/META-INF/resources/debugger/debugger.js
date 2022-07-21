@@ -1,8 +1,12 @@
-import {getUser,getUserCalendar,getUserJournal,getUserPanicButton,addDayToCalendar,addEntryToJournal,addOneToPanicButton,deleteCurrentUser} from "../api/Datastore-API.js";
+import {getUser,getUserCalendar,getUserJournal,getUserPanicButton,addDayToCalendar,addEntryToJournal,addOneToPanicButton,deleteCurrentUser,queryJournalEntries} from "../api/Datastore-API.js";
 import {getCurrentUsername,getCurrentPasswordHash,deleteCookie} from "../Cookies.js"
 import {updateText} from "../updateText.js";
+import {redirectToLoginIfNotLoggedIn} from "../check_if_logged_in.js";
 
 window.onLoad = async function(){
+
+    redirectToLoginIfNotLoggedIn();
+
     const currentUsername = getCurrentUsername();
     const currentPasswordHash = getCurrentPasswordHash();
 
@@ -24,21 +28,13 @@ window.addToCalendar = async function addToCalendar(){
 
     console.log("Data:",currentUsername,currentPasswordHash);
 
-    const d = document.getElementById("day-date").value;
-
-    const date = new Date(d) * 1;
+    const date = document.getElementById("day-date").value;
 
     const mood = document.getElementById("day-mood").value;
 
-    // day = {date: long, mood: byte}
-    const day = {
-        date: date,
-        mood: mood
-    }
+    console.log("Input day:",date,mood);
 
-    console.log("Input day:",day);
-
-    const response = await addDayToCalendar(currentUsername, currentPasswordHash, day);
+    const response = await addDayToCalendar(currentUsername, currentPasswordHash, date, mood);
 
     console.log(await response);
     if (await response.error) {
@@ -55,13 +51,10 @@ window.addToJournal = async function addToJournal(){
     const currentUsername = getCurrentUsername();
     const currentPasswordHash = getCurrentPasswordHash();
 
-    console.log("Data:",currentUsername,currentPasswordHash);
-
+    const date = document.getElementById("entry-date").value;
     const entry = document.getElementById("journal-entry").value;
 
-    console.log("New entry:", entry);
-
-    const response = await addEntryToJournal(currentUsername, currentPasswordHash, entry);
+    const response = await addEntryToJournal(currentUsername, currentPasswordHash, entry, date);
 
     console.log(await response);
     if (await response.error) {
@@ -112,4 +105,19 @@ window.userDelete = async function userDelete(){
         deleteCookie("passwordHash");
         window.location.href = "/login.html";    
     }
+};
+
+window.queryJournal = async function queryJournal(){
+
+    const currentUsername = getCurrentUsername();
+    const currentPasswordHash = getCurrentPasswordHash();
+
+    const startingDate = document.getElementById("starting-date").value;
+    const endingDate = document.getElementById("ending-date").value;
+
+    const response = await queryJournalEntries(currentUsername, currentPasswordHash, startingDate, endingDate)
+
+    updateText(JSON.stringify(await response),"my-query")
+
+
 };

@@ -1,5 +1,5 @@
-import {register,login} from "../api/Datastore-API.js";
-import {storeLoginSession} from "./Cookies.js"
+import {register,login} from "./api/Datastore-API.js";
+import {storeLoginSession} from "../Cookies.js"
 import {updateText} from "./updateText.js";
 import { shakeAnimation } from "./shake.js";
 
@@ -86,7 +86,7 @@ async function handleRegister(){
     const user = await login(username,password);
     // Store data
     storeLoginSession(username,await user.success.passwordHash);
-    window.location.href = "/debugger.html";
+    window.location.href = "/homepage/homepage.html";
 };
 
 clickBtn.addEventListener('click', e =>{

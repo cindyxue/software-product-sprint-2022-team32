@@ -1,4 +1,33 @@
-import {login} from "../api/Datastore-API.js";
+<<<<<<< HEAD
+// Copyright 2020 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+/**
+ * Opens and closes the panic button popup.
+ */
+
+let popup = document.getElementById("popup");
+
+function openPopup(){
+  popup.classList.add("open-popup");
+}
+
+function closePopup(){
+    popup.classList.remove("open-popup");
+}
+=======
+import {login} from "./api/Datastore-API.js";
 import {storeLoginSession} from "./Cookies.js";
 import {updateText} from "./updateText.js";
 import { shakeAnimation } from "./shake.js";
@@ -74,7 +103,7 @@ async function handleLogin(){
     }
     // Store data
     storeLoginSession(username,await response.success.passwordHash)
-    window.location.href = "/debugger.html";        
+    window.location.href = "/homepage/homepage.html";        
 };
 
 clickBtn.addEventListener('click', e =>{
@@ -91,3 +120,4 @@ clickBtn.addEventListener('click', e =>{
         cleanError("password");
     });
 });
+>>>>>>> a9c21a807f98dfa328201175ed49c73aee63c0cd

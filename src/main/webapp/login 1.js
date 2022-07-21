@@ -1,7 +1,7 @@
-import {login} from "../api/Datastore-API.js";
+import {login} from "./api/Datastore-API.js";
 import {storeLoginSession} from "./Cookies.js";
-import {updateText} from "./updateText.js";
-import { shakeAnimation } from "./shake.js";
+import {updateText} from "./login/updateText.js";
+import { shakeAnimation } from "./login/shake.js";
 
 const clickBtn = document.getElementById("login-button");
 const userField = document.getElementById("username");
@@ -74,7 +74,7 @@ async function handleLogin(){
     }
     // Store data
     storeLoginSession(username,await response.success.passwordHash)
-    window.location.href = "/debugger.html";        
+    window.location.href = "/homepage/homepage.html";        
 };
 
 clickBtn.addEventListener('click', e =>{

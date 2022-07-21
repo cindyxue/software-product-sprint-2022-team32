@@ -1,0 +1,158 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgb(238, 238, 238);
+}
+
+#logo-img {
+    height: 7vh;
+}
+
+.logo {
+    cursor: pointer;
+    margin-right: auto;
+}
+
+.nav-option, a {
+    font-weight: 500;
+    font-size: 16px;
+    color: rgb(57, 138, 185);
+    text-decoration: none;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 2.5rem 10%;
+}
+
+.nav-links {
+    list-style: none;
+    cursor: pointer;
+}
+
+.nav-links li a{
+    transition: all 0.5s ease 0s;
+    font-weight: bold;
+}
+
+.nav-links li a:hover{
+    color: rgb(28, 101, 140);
+}
+
+.nav-links li {
+    display: inline-block;
+    padding: 0px 4vw;
+}
+
+.modfooter {
+    background-color: rgb(28, 101, 140);
+    color: rgb(238, 238, 238);
+    padding: 2rem;
+    margin-top: auto;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.team-tittle, .github-item {
+    color:rgb(238, 238, 238);
+    background-color: rgb(28, 101, 140);
+    text-align: center;
+}
+
+#quote-box {
+    width: 70%;
+    margin: auto;
+    padding: 7%;
+}
+
+#quote {
+    font-size: 2rem;
+}
+
+#greeter {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 1rem;
+
+    width: 50%;
+    margin: 5%;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.popup { 
+    width: 250px;
+    height: 300px;
+    background: #EEEEEE;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 6px;
+    border: 3px solid #1C658C;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    color: #1C658C;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+
+.open-popup{
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popup-img{
+    width: 100px;
+    margin-top: -50px;
+    border-radius: 110%;
+    box-shadow: 0 2px 5px rbga(0, 0, 0, 0.2);
+}
+
+.popup-h2{
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 500;
+    margin: 30px 0 10px;
+}
+
+.popup-button {
+    width: 50%;
+    margin-top: 25px;
+    padding: 10px 0;
+    background: #1C658C;
+    color: #EEEEEE;
+    font-family: 'Courier New', Courier, monospace;
+    border: 0;
+    outline: none;
+    font-size: 11px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rbga(0, 0, 0, 0.2);
+}
+
+
+
+
+
+
+
+

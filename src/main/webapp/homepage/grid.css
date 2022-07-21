@@ -1,0 +1,234 @@
+.grid-block {
+    height:0;
+    width:13%;
+    padding-bottom:10%;
+    border-radius: 10%;
+    cursor: pointer;
+}
+
+.grid-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    column-gap: 1%;
+    row-gap: 0.5rem;
+    list-style: none;
+    padding-right: 5rem;
+    padding-left: 5rem;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+
+.dark-menu-bg {
+	background-color: rgba(0, 0, 0, 0.8);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	display: none;
+	justify-content: center;
+	align-items: center;
+}
+
+.menu-contents {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    min-width: 400px;
+    min-height: 150px;
+	background-color: white;
+	text-align: center;
+	padding: 20px;
+	position: relative;
+	border-radius: 4px;
+}
+
+.close-menu {
+	position: absolute;
+	top: 0;
+	right: 10px;
+	font-size: 42px;
+	color: #333;
+	transform: rotate(45deg);
+	cursor: pointer;
+    background-color: transparent;
+}
+
+p {
+    letter-spacing: 1px;
+    background-color: white;
+}
+
+form {
+    background-color: white;
+}
+
+.colors {
+    justify-items: center;
+    list-style: none;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 20px;
+    background-color: white;
+}
+
+.color-item {
+    width: 24px;
+    height: 24px;    
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s;
+	border: none;
+}
+
+.color-item:focus {
+	border: 2px solid black;
+}
+
+.mood-one {
+    background-color: #fa6e6e;
+    color:  #fa6e6e;
+}
+.mood-two {
+    background-color: #ff8d4b;
+    color: #ff8d4b;
+}
+.mood-three {
+    background-color: rgb(253, 203, 86);
+    color: rgb(253, 203, 86);
+}
+.mood-four {
+    background-color: #889623;
+    color: #889623;
+}
+.mood-five {
+    background-color: #5ab74f;
+    color: #5ab74f;
+}
+
+.dark-update-menu-bg {
+	background-color: rgba(0, 0, 0, 0.8);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	display: none;
+	justify-content: center;
+	align-items: center;
+}
+
+.close-update-menu {
+	position: absolute;
+	top: 0;
+	right: 10px;
+	font-size: 42px;
+	color: #333;
+	transform: rotate(45deg);
+	cursor: pointer;
+    background-color: transparent;
+} 
+
+.delete-btn, .create-btn, .submit-btn, .open-btn {
+    font-family: 'Courier New', Courier, monospace;
+	cursor: pointer;
+	border: none;
+	background-color: #1C658C;;
+	color: white;
+	border-radius: 13%;
+	min-width: 60px;
+	min-height: 30px;
+}
+
+.open-btn {
+ border-radius: 0px;    
+}
+
+.entry {
+	background-color: #EEEE;
+	color: #333;
+	padding: 1em;
+	border-radius: 10px;
+	border: 2px solid transparent;
+	outline: none;
+	font-family: 'Courier New', Courier, monospace;
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 1.4;
+	resize: none;
+	width: 100%;
+	height: 20em;
+	min-width: 210px;
+    min-height: 100px;
+	transition: all 0.2s;
+}
+
+.entry:focus {
+	border: 2px solid black;
+}
+
+#date {
+	margin-top: 1.5em;
+}
+
+.popup { 
+    width: 250px;
+    height: 300px;
+    background: #EEEEEE;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 6px;
+    border: 3px solid #1C658C;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    color: #1C658C;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+
+.open-popup{
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popup-img{
+    width: 100px;
+    margin-top: -50px;
+    border-radius: 110%;
+    box-shadow: 0 2px 5px rbga(0, 0, 0, 0.2);
+}
+
+.popup-h2{
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    background: #EEEEEE;
+    font-weight: 500;
+    margin: 30px 0 10px;
+}
+
+#popup-p {
+    font-family: 'Courier New', Courier, monospace;
+    background: #EEEEEE;
+}
+
+
+.popup-button {
+    width: 50%;
+    margin-top: 25px;
+    padding: 10px 0;
+    background: #1C658C;
+    color: #EEEEEE;
+    font-family: 'Courier New', Courier, monospace;
+    border: 0;
+    outline: none;
+    font-size: 11px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rbga(0, 0, 0, 0.2);
+}

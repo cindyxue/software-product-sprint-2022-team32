@@ -21,6 +21,10 @@ let popup = document.getElementById("popup");
 function openPopup(){
     popup.classList.add("open-popup");
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> a9c21a807f98dfa328201175ed49c73aee63c0cd
 let popup2= document.getElementById("popup2");
 
 function openPopupTwo(){
@@ -32,3 +36,7 @@ function closePopupTwo(){
     popup2.classList.remove("open-popup");
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a9c21a807f98dfa328201175ed49c73aee63c0cd

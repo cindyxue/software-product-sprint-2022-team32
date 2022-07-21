@@ -28,9 +28,12 @@
     <div>
         <h2>Add Entry to Journal</h2>
 
+<<<<<<< HEAD
+=======
         <label for="date">Date:</label>
         <input type="date" name="date" id="entry-date">
 
+>>>>>>> a9c21a807f98dfa328201175ed49c73aee63c0cd
         <label for="journal-entry">Journal Entry:</label>
         <textarea id="journal-entry" name="journal-entry" rows="5" cols="50"> </textarea>
 
@@ -38,6 +41,8 @@
     </div>
 
     <div>
+<<<<<<< HEAD
+=======
         <h2>Query Calendar</h2>
 
         <label for="date">Starting Date:</label>
@@ -52,6 +57,7 @@
     </div>
 
     <div>
+>>>>>>> a9c21a807f98dfa328201175ed49c73aee63c0cd
         <h2>My Calendar</h2>
         <div id="my-calendar"></div>
     </div>

@@ -1,27 +1,93 @@
-// Copyright 2020 Google LLC
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+import {login} from "./api/Datastore-API.js";
+import {storeLoginSession} from "./Cookies.js";
+import {updateText} from "./updateText.js";
+import { shakeAnimation } from "./shake.js";
 
-/**
- * Opens and closes the panic button popup.
- */
+const clickBtn = document.getElementById("login-button");
+const userField = document.getElementById("username");
+const passwordField = document.getElementById("password");
 
-let popup = document.getElementById("popup");
 
-function openPopup(){
-  popup.classList.add("open-popup");
+function handleError(txt){
+    cleanErrors();
+    updateText(txt,"errorField")
+    if (txt === "Invalid username."){
+        userField.classList.add("invalid-field");
+        return;
+    }
+    if (txt === "Invalid password."){
+        passwordField.classList.add("invalid-field");
+        return;
+    }    
+    userField.classList.add("invalid-field");
+    passwordField.classList.add("invalid-field");
 }
 
-function closePopup(){
-    popup.classList.remove("open-popup");
+function cleanErrors(){
+    userField.classList.remove("invalid-field");
+    passwordField.classList.remove("invalid-field");
+    updateText("","errorField")
 }
+
+function cleanError(fieldName){
+    document.getElementById(fieldName).classList.remove("invalid-field");
+    updateText("","errorField");
+}
+
+function validateData(username, password){
+    let isValid = true;
+    // Validate data
+    if(username == ""){
+        // Change class of input to red
+        userField.classList.add("invalid-field");
+        isValid = false;
+    }
+    if(password == ""){
+        // Change class of input to red
+        passwordField.classList.add("invalid-field");
+        isValid = false;
+    }
+    if (!isValid){
+        updateText("Please fill all required fields.","errorField")
+    }
+    return isValid;
+}
+
+async function handleLogin(){
+    
+    // Get data from form
+    const username = userField.value;
+    const password = passwordField.value;
+    const invalidFields = document.getElementsByClassName("invalid-field");
+    if (invalidFields.length > 0){
+        shakeAnimation(invalidFields);
+        return;
+    }
+    if (!validateData(username, password)){
+        return;
+    }
+    
+    const response = await login(username, password);
+    if (await response.error) {
+        handleError(response.error);
+        return;
+    }
+    // Store data
+    storeLoginSession(username,await response.success.passwordHash)
+    window.location.href = "/homepage/homepage.html";        
+};
+
+clickBtn.addEventListener('click', e =>{
+    e.preventDefault();
+    e.stopPropagation();
+    handleLogin();
+});
+
+['change','input'].forEach(  function(evt) {
+    userField.addEventListener(evt,e=>{
+        cleanError("username");
+    });
+    passwordField.addEventListener(evt,e=>{
+        cleanError("password");
+    });
+});
