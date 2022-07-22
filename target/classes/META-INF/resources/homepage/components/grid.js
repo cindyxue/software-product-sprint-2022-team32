@@ -35,7 +35,7 @@ window.loadGrid = async function loadGrid() {
 
 
 //takes in an int representing a mood from the database and return the corresponding class
-function colorSelectionToClass(moodNum) {
+window.colorSelectionToClass = function colorSelectionToClass(moodNum) {
     switch (moodNum) {
         case 1:
             setColor('mood-one')
@@ -59,7 +59,7 @@ function colorSelectionToClass(moodNum) {
 }
 
 //takes in a string representing a mood and return the corresponding int
-function colorSelectionToNum(mood) {
+window.colorSelectionToNum = function colorSelectionToNum(mood) {
     switch (mood) {
         case 'mood-one':
             return 1
@@ -88,33 +88,33 @@ updateDayMenuClose.addEventListener("click", function() {
 });
 
 //opens the day menu
-function openCreateDayMenu(){
+window.openCreateDayMenu = function openCreateDayMenu(){
     createDayMenu.style.display = "flex";
 }
 
 //opens the day update menu
-function openUpdateDayMenu(){
+window.openUpdateDayMenu = function openUpdateDayMenu(){
     updateDayMenu.style.display = "flex";
 }
 
 //closes the day menu
-function closeCreateDayMenu(){
+window.closeCreateDayMenu = function closeCreateDayMenu(){
     createDayMenu.style.display = "none";
 }
 
 //closes the day update menu
-function closeUpdateDayMenu(){
+window.closeUpdateDayMenu = function closeUpdateDayMenu(){
     updateDayMenu.style.display = "none";
 }
 
 //sets the variable colorSelection to the string color
-function setColor(color){
+window.setColor = function setColor(color){
     colorSelection = color
     console.log(colorSelection)
 }
 
 //creates a day with color and adds it to the grid
-async function createDay() {
+window.createDay = async function createDay() {
     var newDay = document.createElement('li');
     newDay.classList.add('grid-block');
     changeColor(newDay, colorSelection)
@@ -135,13 +135,13 @@ async function createDay() {
 }
 
 //changes the color when the day is updated in the update menu (not currently in use)
-async function updateDay() {
+window.updateDay = async function updateDay() {
     changeColor(currentDay,colorSelection);
     closeUpdateDayMenu()
 }
 
 //checks that a color was selected by the user to make sure a day can be created
-function submitDay() {
+window.submitDay = function submitDay() {
     if (colorSelection !== 'unselected-color'){
         createDay()
     }
@@ -150,19 +150,19 @@ function submitDay() {
 }
 
 //changes the color of the day with a string color
-function changeColor(day, color) {
+window.changeColor = function changeColor(day, color) {
     day.classList.remove(...colors)
     day.classList.add(color);
 }
 
 //deletes the day from the frontend (not currently in use)
-function deleteDay() {
+window.deleteDay = function deleteDay() {
     currentDay.remove()
     closeUpdateDayMenu();
 }
 
 //checks if a day is clicked on and opens the update menu if so
-function detectDayClick(e){
+window.detectDayClick = function detectDayClick(e){
     e = e || window.event;
     e = e.target || e.srcElement;
     if (e.classList.contains('grid-block')) {

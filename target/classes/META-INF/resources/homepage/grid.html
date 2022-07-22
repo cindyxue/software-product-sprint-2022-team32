@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="homepage.css">
     <link rel="stylesheet" href="grid.css">
 </head>
-<body onclick="detectDayClick(this.id)">
+<body onclick="detectDayClick(this.id)" onload="loadGrid()">
     <nav-bar></nav-bar>
 
     <button class="open-btn" onclick="openCreateDayMenu()">Add Day</button>
@@ -46,8 +46,9 @@
 
             <div class="close-update-menu">+</div>
             <form action="">
-                <p>Update your day!</p>
-                <div class="colors">
+                <p>Delete day?</p>
+                <input type="date" id="date-update">
+                <!-- <div class="colors">
                     <button type="button" class="color-item mood-one" onclick="setColor('mood-one')"></button>
                     <button type="button" class="color-item mood-two" onclick="setColor('mood-two')"></button>
                     <button type="button" class="color-item mood-three" onclick="setColor('mood-three')"></button>
@@ -55,11 +56,11 @@
                     <button type="button" class="color-item mood-five" onclick="setColor('mood-five')"></button>
                 </div>
                 
-                <textarea class="entry" id="journal-entry-update" placeholder="How was your day?"></textarea>
+                <textarea class="entry" id="journal-entry-update" placeholder="How was your day?"></textarea> -->
 
                 <form action="">
                     <button type="button" class="delete-btn" onclick="deleteDay()">Delete</button>
-                    <button type="button" class="submit-btn" onclick="updateDay()">Update</button>
+                    <!-- <button type="button" class="submit-btn" onclick="updateDay()">Update</button> -->
                 </form>
 
             </form>
@@ -87,9 +88,9 @@
 
     <footer-end class="modfooter"></footer-end>
 
-    <script src="homepage.js"></script>
-    <script src="components/grid.js"></script>
-    <script src="components/navbar.js"></script>
-    <script src="components/footer.js"></script>
+    <script type="module" src="./homepage.js"></script>
+    <script type="module" src="./components/grid.js"></script>
+    <script src="./components/navbar.js"></script>
+    <script src="./components/footer.js"></script>
 </body>
 </html>
