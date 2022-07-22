@@ -17,11 +17,11 @@ const currentPasswordHash = getCurrentPasswordHash();
 
 window.loadGrid = async function loadGrid() {
     //get array of days
-    const userCal = JSON.parse(await getUserCalendar(currentUsername,currentPasswordHash));
-    console.log(userCal)
+    const userCal = await getUserCalendar(currentUsername,currentPasswordHash);
+    console.log(await userCal)
 
     //populate the grid by creating each day in the array of days
-    for (const day of userCal) {
+    for (const day of await userCal) {
         const mood = day.mood
         //change to the matching mood color
         colorSelectionToClass(mood)
