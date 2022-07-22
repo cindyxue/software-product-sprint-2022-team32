@@ -1,8 +1,10 @@
 import {getCurrentUsername} from "../Cookies.js"
 import {updateText} from "../updateText.js";
+import {redirectToLoginIfNotLoggedIn} from "../../check_if_logged_in.js"
 
 //loads the user's name to add it as a greeter
 window.onLoad = async function(){
+    redirectToLoginIfNotLoggedIn();
     const currentUsername = getCurrentUsername();
     updateText("Hello, " + currentUsername + "!","greeter");
 };

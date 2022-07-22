@@ -1,5 +1,6 @@
 import {getUser,getUserCalendar,getUserJournal,getUserPanicButton,addDayToCalendar,addEntryToJournal,addOneToPanicButton,deleteCurrentUser,queryJournalEntries} from "../../api/Datastore-API.js";
 import {getCurrentUsername,getCurrentPasswordHash,deleteCookie} from "../../Cookies.js"
+import {redirectToLoginIfNotLoggedIn} from "../../check_if_logged_in.js"
 
 const gridContainer = document.getElementById('grid-container');
 const createDayMenu = document.querySelector('.dark-menu-bg');
@@ -16,6 +17,7 @@ const currentUsername = getCurrentUsername();
 const currentPasswordHash = getCurrentPasswordHash();
 
 window.loadGrid = async function loadGrid() {
+    redirectToLoginIfNotLoggedIn();
     //get array of days
     const userCal = await getUserCalendar(currentUsername,currentPasswordHash);
     console.log(await userCal)
