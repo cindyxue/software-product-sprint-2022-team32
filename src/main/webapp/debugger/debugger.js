@@ -85,7 +85,7 @@ window.updatePanicButton = async function updatePanicButton(){
 window.logout = function logout(){
     deleteCookie("username");
     deleteCookie("passwordHash");
-    window.location.href = "/login.html";    
+    window.location.href = "/";    
 };
 
 window.userDelete = async function userDelete(){

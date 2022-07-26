@@ -24,7 +24,7 @@ const author = document.getElementById("author");
 const btn = document.getElementById("btn");
 
 //fetches a random quote from the api
-function getQuote() {
+export function getQuote() {
   fetch(apiQ)
     .then((res) => res.json())
     .then((data) => {

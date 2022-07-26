@@ -14,9 +14,11 @@ public class DeleteAll extends ServletTemplate {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws IOException {
             try{
+                /*
                 DatastoreService datastoreService = new DatastoreService();
                 datastoreService.deleteAll();
                 sendJSONResponse(response,"{\"success\":\"All accounts deleted.\"}");
+                */
                 return;
             } catch(Exception e){
                 String message = "{\"error\":\"" + e + "\"}" ;

@@ -7,7 +7,7 @@ export function isLoggedIn(){
 
 export function redirectToLoginIfNotLoggedIn(){
     if (!isLoggedIn()){
-        window.location.href = "/login.html";  
+        window.location.href = "/";  
     }
 }
 
